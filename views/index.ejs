@@ -235,9 +235,11 @@
                    
                     <li class=" font-bold"><a href="/contact">Contact Us</a></li>
                    
+                    <% if(loggedInUser) { %>
                       <li class="font-bold"><a href="/logout">Logout</a></li>
-                   
+                    <% } else { %>
                       <li class="font-bold"><a href="/login">Login</a></li>
+                    <% } %>
                    
                     <h4><i id="menu-btn" class="  ri-menu-line"></i></h4>
                 </ul>

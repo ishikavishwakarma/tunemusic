@@ -143,66 +143,10 @@
               </p>
             </header>
             <main>
-              <form id="survey-form" action="#" class="flex flex-col items-center gap-5"  method="post">
-                <div class="grid gap-10 grid-cols-3">
-
-                    <div class="div">
-                        <label id="name-label"  for="name"
-                          >Choose song</label>
-                          <input type="file" name="audio" accept="audio/*" required>
-                    </div>
-                   
-                    <div class="div">
-                        <label id="name-label"  for="name"
-                          >Choose song Title</label>
-                          <input type="text" name="title" placeholder="Track Title" required>
-                    </div>
-                   
-                    <div class="div">
-                        <label id="name-label"  for="name"
-                          >Choose image</label>
-                          <input type="file" name="posterUrl" accept="image/*">
-                    </div>
-                   
-                    <div class="div">
-                        <label id="name-label"  for="name"
-                          >Artist Name</label>
-                          <input type="text" name="artistName" placeholder="Artist Name">
-                    </div>
-                   
-                    <div class="div">
-                        <label id="name-label"  for="name"
-                          >Instagram Id</label>
-                          <input type="text" name="instagramId" placeholder="Instagram ID">
-                    </div>
-                    <div class="div">
-                        <label id="name-label"  for="name"
-                          >ISRC Code</label>
-                          <input type="text" name="isrcCode" placeholder="ISRC Code">
-                    </div>
-                    <div class="div">
-                        <label id="name-label"  for="name"
-                          >upcCode Code</label>
-                          <input type="text" name="upcCode" placeholder="upcCode">
-                    </div>
-                    <div class="div">
-                        <label id="name-label"  for="name"
-                          >genre</label>
-                          <input type="text" name="genre" placeholder="genre">
-                    </div>
-                    <div class="div">
-                        <label id="name-label"  for="name"
-                          >releaseDate</label>
-                          <input type="text" name="releaseDate" placeholder="releaseDate">
-                    </div>
-                   
-                </div>
-             
-            
-             
-                
-                <button id="submit">Submit</button>
-              </form>
+            <form action="/uploadMusic" method="post" enctype="multipart/form-data">
+                <input type="file" name="song">
+                <input type="submit">
+               </form>
             </main>
           </div>
     </div>

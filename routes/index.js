@@ -1,15 +1,18 @@
 var express = require('express');
 var router = express.Router();
 const userModel = require("./users");
+const songModel = require("./songModel");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const cloudinary = require("cloudinary").v2;
 require('dotenv').config({path:"./.env"})
 const mongoose = require("mongoose");
+const { Readable } = require("stream");
 var id3 = require("node-id3");
 var crypto = require("crypto");
 var multer = require("multer");
 const { token } = require('morgan');
+
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 /* GET home page. */
@@ -26,92 +29,80 @@ router.get('/',isLoggedIn, async function(req, res, next) {
 router.get("/register", async function (req, res, next) {
   res.render("register", { error: req.flash("error") });
 });
-const conn = mongoose.connection;
-var gfsBucket, gfsBucketPoster;
-conn.once("open", () => {
-  gfsBucket = new mongoose.mongo.GridFSBucket(conn.db, {
-    bucketName: "audio",
-  });
-  gfsBucketPoster = new mongoose.mongo.GridFSBucket(conn.db, {
-    bucketName: "poster",
-  });
-});
+const conn = mongoose.connection
+var gfsBucket 
+//  gfs
+conn.once('open',()=>{
+ gfsBucket = new mongoose.mongo.GridFSBucket(conn.db,{
+  bucketName:"songs"
+ })
+})
 router.get("/uploadMusic",   function (req, res, next) {
   res.render("uploadmusic");
 });
-router.post(
-  "/uploadMusic",
-  upload.single("audio"), // Change to single file upload
-  async function (req, res, next) {
-    try {
-      const RandomName = crypto.randomBytes(20).toString("hex");
+// router.post('/uploadMusic', upload.single('audio'), isLoggedIn, async (req, res) => {
+//   try {
+//     const RandomName = crypto.randomBytes(20).toString('hex');
 
-      // Save audio track
-      const audioFile = req.file;
-      if (!audioFile) {
-        return res.status(400).send("No audio file uploaded");
-      }
-      const audioReadStream = Readable.from(audioFile.buffer);
-      audioReadStream.pipe(gfsBucket.openUploadStream(RandomName));
+//     // Save audio track
+//     const audioFile = req.file;
+//     if (!audioFile) {
+//       return res.status(400).send('No audio file uploaded');
+//     }
+//     const audioReadStream = Readable.from(audioFile.buffer);
+//     audioReadStream.pipe(gfsBucket.openUploadStream(RandomName));
 
-      // Upload poster image to Cloudinary
-      const posterFile = req.files && req.files.poster;
-      let posterUrl;
-      if (posterFile) {
-        const posterImage = posterFile[0];
-        cloudinary.uploader.upload(posterImage.tempFilePath, async function (err, result) {
-          if (err) {
-            console.error("Error uploading poster image to Cloudinary:", err);
-            throw err;
-          }
-          posterUrl = result.secure_url;
+//     // Upload poster image to Cloudinary
+//     const posterFile = req.files && req.files.poster;
+//     let posterUrl;
+//     if (posterFile) {
+//       const posterImage = posterFile[0];
+//       const posterUploadResult = await cloudinary.uploader.upload({
+//         resource_type: 'image',
+//         folder: 'audio_posters'
+//       }, (error, result) => {
+//         if (error) {
+//           console.error('Error uploading poster image to Cloudinary:', error);
+//           throw error;
+//         }
+//         posterUrl = result.secure_url;
 
-          // Create audio track entry
-          await songModel.create({
-            title: req.body.title || "Untitled",
-            description: req.body.description || "",
-            audioFilename: RandomName,
-            posterUrl: posterUrl || "", // Empty string if no poster provided
-          });
+//         // Create audio track entry
+//         createAudioTrack(req, res, RandomName, posterUrl);
+//       });
+//       Readable.from(posterImage.buffer).pipe(posterUploadResult);
+//     } else {
+//       // If no poster image provided
+//       createAudioTrack(req, res, RandomName, '');
+//     }
+//   } catch (error) {
+//     console.error('Error uploading audio track:', error);
+//     res.status(500).send('Internal Server Error');
+//   }
+// });
+router.post('/uploadMusic',upload.single('song'), function(req, res, next) {
+  Readable.from(req.file.buffer).pipe(gfsBucket.openUploadStream())
+  res.send("uploaded")
+});
+// async function createAudioTrack(req, res, RandomName, posterUrl) {
+//   // const { title, artistName, instagramId, youtubeChannel, isrcCode, upcCode, genre, subGenre, releaseDate } = req.body;
 
-          res.send("Audio track uploaded successfully");
-        });
-      } else {
-        // If no poster image provided
-        await songModel.create({
-          title: req.body.title || "Untitled",
-          description: req.body.description || "",
-          audioFilename: RandomName,
-          posterUrl: "", // No poster provided
-        });
+//   await songModel.create({
+//     // title: title,
+//     // artistName: artistName,
+//     // instagramId: instagramId,
+//     // youtubeChannel: youtubeChannel,
+//     // isrcCode: isrcCode,
+//     // upcCode: upcCode,
+//     // genre: genre,
+//     // subGenre: subGenre,
+//     // releaseDate: releaseDate,
+//     audio: RandomName,
+//     posterUrl: posterUrl
+//   });
 
-        res.send("Audio track uploaded successfully");
-      }
-    } catch (error) {
-      console.error("Error uploading audio track:", error);
-      res.status(500).send("Internal Server Error");
-    }
-  }
-);
-async function createAudioTrack(req, res, RandomName, posterUrl) {
-  const { title, artistName, instagramId, youtubeChannel, isrcCode, upcCode, genre, subGenre, releaseDate } = req.body;
-
-  await songModel.create({
-    title: title,
-    artistName: artistName,
-    instagramId: instagramId,
-    youtubeChannel: youtubeChannel,
-    isrcCode: isrcCode,
-    upcCode: upcCode,
-    genre: genre,
-    subGenre: subGenre,
-    releaseDate: releaseDate,
-    audioFilename: RandomName,
-    posterUrl: posterUrl
-  });
-
-  res.send("Audio track uploaded successfully");
-}
+//   res.send("Audio track uploaded successfully");
+// }
 
 router.post("/register", async function (req, res, next) {
   try {
@@ -137,36 +128,41 @@ router.post("/register", async function (req, res, next) {
       .json({ error: "An error occurred while registering the user" });
   }
 });
-router.post("/login", async function (req, res, next) {
+router.post('/login', async function (req, res, next) {
   try {
     const { email, password } = req.body;
     const userExist = await userModel.findOne({ email });
     if (!userExist) {
-      req.flash("error", "Invalid credentials");
-      console.log("user login nhi hai")
-      return res.redirect("/login");
+      req.flash('error', 'Invalid credentials');
+      return res.redirect('/login');
     }
+
     const user = await userExist.comparePassword(password);
+    // user contains true/false
     if (user) {
-      if (userExist.role === "admin") {
-        const token = await userExist.generateToken();
-        res.cookie("token", token, { httpOnly: true }); // Set token as a cookie
-        res.redirect("/register");
-        console.log("admin")
+     
+      const token = await userExist.generateToken();
+      res.cookie('token', token, { 
+        httpOnly: true,
+        expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 days
+      }); // Set token as a cookie
+
+      if (userExist.role === 'admin') {
+        res.redirect('/uploadMusic');
       } else {
-        console.log(token)
-        console.log("user")
-        res.redirect("/");
+        res.redirect('/');
       }
+
     } else {
-      req.flash("error", "Invalid credentials");
-      console.log("Invalid credentials")
-      return res.redirect("/login");
+      req.flash('error', 'Invalid credentials');
+      return res.redirect('/login');
     }
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "An error occurred while login" });
   }
+  catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'An error occurred while login' });
+  };
+
 });
 
 router.get("/login", async function (req, res, next) {

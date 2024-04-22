@@ -14,7 +14,7 @@ const songSchema = mongoose.Schema({
       genre: String,
       subGenre: String,
       releaseDate: Date,
-      audio: {
+      filename: {
         type: String,
         required: true
       },
