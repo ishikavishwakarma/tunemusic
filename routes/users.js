@@ -53,6 +53,7 @@ const userSchema = new mongoose.Schema({
     enum:["admin","user"],
     default:"user",
 },
+songs: [{ type: mongoose.Schema.Types.ObjectId, ref: "song" }],
 },{timestamps:true})
 
 

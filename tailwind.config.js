@@ -1,5 +1,8 @@
 module.exports = {
-  content: ['./views/*.ejs'],
+  content: ['./views/*.ejs'
+,
+'./node_modules/flowbite/**/*.js'],
+
   theme: {
     extend: {
       fontFamily:{
@@ -9,9 +12,11 @@ module.exports = {
     },
   },
   plugins: [
+    require('flowbite/plugin'),
   {
   tailwindcss: {},
   autoprefixer: {},
+  
   },
   ],
   };

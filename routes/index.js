@@ -10,6 +10,7 @@ const mongoose = require("mongoose");
 const { Readable } = require("stream");
 var id3 = require("node-id3");
 var crypto = require("crypto");
+const formidable = require("formidable");
 var multer = require("multer");
 const { token } = require('morgan');
 
@@ -24,6 +25,7 @@ cloudinary.config({
 router.get('/',isLoggedIn, async function(req, res, next) {
   const user = req.user;
   const loggedInUser = await userModel.findOne({ _id: user._id });
+
   res.render('index', { loggedInUser});
 });
 router.get("/register", async function (req, res, next) {
@@ -34,10 +36,10 @@ var gfsBucket
 //  gfs
 conn.once('open',()=>{
  gfsBucket = new mongoose.mongo.GridFSBucket(conn.db,{
-  bucketName:"songs"
+  bucketName:"audioSongs"
  })
 })
-router.get("/uploadMusic",   function (req, res, next) {
+router.get("/uploadMusic", isLoggedIn,  function (req, res, next) {
   res.render("uploadmusic");
 });
 // router.post('/uploadMusic', upload.single('audio'), isLoggedIn, async (req, res) => {
@@ -80,9 +82,193 @@ router.get("/uploadMusic",   function (req, res, next) {
 //     res.status(500).send('Internal Server Error');
 //   }
 // });
-router.post('/uploadMusic',upload.single('song'), function(req, res, next) {
-  Readable.from(req.file.buffer).pipe(gfsBucket.openUploadStream())
-  res.send("uploaded")
+// router.post('/uploadMusic', upload.fields([{ name: 'song', maxCount: 1 }, { name: 'posterUrl', maxCount: 1 }]), async function(req, res, next) {
+//   try {
+//     // Check if audio file is uploaded
+//     if (!req.files || !req.files.song || req.files.song.length === 0) {
+//       return res.status(400).send('No audio file uploaded.');
+//     }
+
+//     // Handle audio upload to GridFS
+//     const audioFile = req.files.song[0]; // Access the uploaded audio file
+//     const audioUploadStream = gfsBucket.openUploadStream();
+//     Readable.from(audioFile.buffer).pipe(audioUploadStream);
+
+//     audioUploadStream.on('error', (error) => {
+//       console.error('Error uploading audio to GridFS:', error);
+//       res.status(500).send('Error uploading audio.');
+//     });
+
+//     audioUploadStream.on('finish', async () => {
+//       console.log('Audio uploaded to GridFS successfully.');
+      
+//       // Upload image to Cloudinary if provided
+//       if (req.files.posterUrl && req.files.posterUrl.length > 0) {
+//         const imageFile = req.files.posterUrl; // Access the uploaded image file
+
+//         cloudinary.uploader.upload(imageFile.tempFilePath, async function(error, result) {
+//           if (error) {
+//             console.error('Error uploading image to Cloudinary:', error);
+//             return res.status(500).send('Error uploading image.');
+//           }
+
+//           const newSong = new songModel({
+//             posterUrl: result.secure_url
+//           });
+//           await newSong.save();
+//           console.log('Image uploaded to Cloudinary:', result);
+//           res.send('Audio and image uploaded successfully.');
+//         });
+//       } else {
+//         res.send('Audio uploaded successfully.');
+//       }
+//     });
+//   } catch (error) {
+//     console.error('Error handling upload:', error);
+//     res.status(500).send('Error handling upload.');
+//   }
+// });
+router.get('/home',isAdmin, async(req, res) => {
+  const admin = await userModel.findOne({ role: "admin" });
+  const songs = await songModel.find()
+  const requests = await songModel.find({ status: { $ne: 'approve' } });
+  const request = await songModel.find({ status: { $ne: 'approve' } }).limit(3);
+  const users = await userModel.find({ role: { $ne: "admin" } });
+  const user = await userModel.find({ role: { $ne: "admin" } }).limit(3);
+  res.render('home',{admin,songs,users,user,request,requests})
+});
+router.get('/requestsongs',isAdmin, async(req, res) => {
+
+  try {
+    const songs = await songModel.find({ status: { $ne: 'approve' } });
+    const admin = await userModel.findOne({ role: "admin" });
+    const users = await userModel.find({ role: { $ne: "admin" } });
+    res.render('adminSongs',{admin,songs,users})
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+router.post('/approve-song/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    // Find the song by ID and update its status
+    const song = await songModel.findByIdAndUpdate(id, { status: 'approve' });
+    if (!song) {
+      return res.status(404).json({ error: 'Song not found' });
+    }
+    // Redirect to the /adminsongs route after updating the status
+    res.json({ redirectTo: '/adminsongs' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+router.get('/deletesong/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    // Find the song by ID and delete it
+    const deletedSong = await songModel.findByIdAndDelete(id);
+
+    // If the song is deleted successfully, remove its ID from the associated user's songs array
+    if (deletedSong) {
+      const users = await userModel.find({ songs: id }); // Find users with this song in their songs array
+      for (const user of users) {
+        user.songs.pull(id); // Remove the song ID from the user's songs array
+        await user.save(); // Save the user
+      }
+    }
+    res.redirect('/adminsongs');
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+router.post('/reject-song/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    // Find the song by ID and update its status
+    const song = await songModel.findByIdAndUpdate(id, { status: 'reject' });
+    if (!song) {
+      return res.status(404).json({ error: 'Song not found' });
+    }
+    // Redirect to the /adminsongs route after updating the status
+    res.json({ redirectTo: '/adminsongs' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+router.get('/adminsongs',isAdmin, async(req, res) => {
+  
+  try {
+    const songs = await songModel.find({ status: 'approve' });
+    const admin = await userModel.findOne({ role: "admin" });
+    const users = await userModel.find({ role: { $ne: "admin" } });
+    res.render('approvesongs',{admin,songs,users})
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+router.get('/adminsongs/:id',isAdmin, async(req, res) => {
+  const admin = await userModel.findOne({ role: "admin" });
+  const song = await songModel.findOne({_id: req.params.id}).populate('userid')
+  res.render('singleSong',{admin,song})
+});
+
+router.get('/songs',isLoggedIn,async (req, res) => {
+  const user = req.user;
+  const loggedInUser = await userModel.findOne({ _id: user._id });
+  res.render('userSongs', { loggedInUser})
+});
+router.post('/uploadMusic',isLoggedIn, async (req, res) => {
+  try {
+    const audioFile = req.files.filename;
+    const imageFile = req.files.posterUrl;
+    const user = req.user;
+    const loggedInUser = await userModel.findOne({ _id: user._id });
+    // Upload audio file to Cloudinary
+    const audioResult = await cloudinary.uploader.upload(audioFile.tempFilePath, {
+      resource_type: "video" // specify the resource type as "video" to ensure audio files are processed correctly
+    });
+    // Upload image file to Cloudinary
+    const imageResult = await cloudinary.uploader.upload(imageFile.tempFilePath);
+    // Save URLs to MongoDB
+    const newMedia = new songModel({
+      title:req.body.title,
+      userid:loggedInUser.id,
+      artistName:req.body.artistName,
+      instagramId:req.body.instagramId,
+      isrcCode:req.body.isrcCode,
+      upcCode:req.body.upcCode,
+      releaseDate:req.body.releaseDate,
+      genre:req.body.genre,
+      filename: audioResult.secure_url,
+      posterUrl: imageResult.secure_url
+    });
+    await newMedia.save();
+    await loggedInUser.songs.push(newMedia._id)
+    await loggedInUser.save()
+    res.redirect('/');
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Internal Server Error');
+  }
+});
+router.get('/stream/:id', async (req, res) => {
+  try {
+    const song = await songModel.findById(req.params.id);
+    if (!song) {
+      return res.status(404).send('Song not found');
+    }
+
+    // Redirect to the Cloudinary URL of the audio file for streaming
+    res.redirect(song.filename);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Internal Server Error');
+  }
 });
 // async function createAudioTrack(req, res, RandomName, posterUrl) {
 //   // const { title, artistName, instagramId, youtubeChannel, isrcCode, upcCode, genre, subGenre, releaseDate } = req.body;
@@ -111,13 +297,13 @@ router.post("/register", async function (req, res, next) {
       return res.redirect("/login");
     }
 
-    const { username, password, email } = req.body;
+    const { username,name, password, email } = req.body;
     const existingUserEmail = await userModel.findOne({ email });
     if (existingUserEmail) {
       req.flash("error", "This Email already exists");
       return res.redirect("/register");
     }
-    const data = await userModel.create({ username, email, password });
+    const data = await userModel.create({ username,name, email, password });
     const token = await data.generateToken();
     res.cookie("token", token, { httpOnly: true }); // Set token as a cookie
     res.redirect("/"); // Redirect to / page
@@ -148,7 +334,7 @@ router.post('/login', async function (req, res, next) {
       }); // Set token as a cookie
 
       if (userExist.role === 'admin') {
-        res.redirect('/uploadMusic');
+        res.redirect('/home');
       } else {
         res.redirect('/');
       }

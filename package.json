@@ -21,6 +21,8 @@
     "express": "~4.16.1",
     "express-fileupload": "^1.5.0",
     "express-session": "^1.18.0",
+    "flowbite": "^2.3.0",
+    "formidable": "^3.5.1",
     "http-errors": "~1.6.3",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.3.1",

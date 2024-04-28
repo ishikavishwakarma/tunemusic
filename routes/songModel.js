@@ -5,7 +5,10 @@ const songSchema = mongoose.Schema({
         type: String,
         required: true
       },
-     
+      userid: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "user"
+    },
       artistName: String,
       instagramId: String,
       youtubeChannel: String,
@@ -16,9 +19,14 @@ const songSchema = mongoose.Schema({
       releaseDate: Date,
       filename: {
         type: String,
-        required: true
+       
       },
-      posterUrl: String
+      posterUrl: String,
+      status:{
+        type:String,
+        enum:["reject","approve","pending"],
+        default:"pending",
+      }
 })
 
 const songModel = mongoose.model('song', songSchema)
