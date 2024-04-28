@@ -239,11 +239,61 @@ router.get('/usersongs/:id',isLoggedIn, async(req, res) => {
   const song = await songModel.findOne({_id: req.params.id}).populate('userid')
   res.render('usersingle',{loggedInUser,song})
 });
+router.post('/updateprofile', isLoggedIn, async function (req, res, next) {
+  try {
+    if (req.files && req.files.image) {
+      const image = req.files.image;
+
+      // Upload new image to Cloudinary
+      const cloudinaryResult = await cloudinary.uploader.upload(image.tempFilePath);
+      const user = req.user;
+      // Update user details with the new image URL
+      const loggedInUser = await userModel.findOneAndUpdate(
+        { _id: user._id },
+        {
+          name: req.body.name,
+          email: req.body.email,
+          contact: req.body.contact,
+          image: cloudinaryResult.secure_url, // Set as a new array with only the new image
+        },
+        { new: true }
+      );
+      // Delete old image from Cloudinary if there was a previous image
+      if (loggedInUser.image.length > 0) {
+        await cloudinary.uploader.destroy(loggedInUser.image[0]);
+      }
+    } else {
+      const user = req.user;
+      // No new image uploaded, update user details without changing the image
+      const loggedInUser = await userModel.findOneAndUpdate(
+        { _id: user._id },
+        {
+          name: req.body.name,
+          email: req.body.email,
+          contact: req.body.contact,
+        },
+        { new: true }
+      );
+    }
+
+    req.flash('success', 'User details updated successfully');
+    res.redirect('/userprofile');
+  } catch (error) {
+    console.error(error);
+    req.flash('error', 'Error updating user details');
+  }
+});
 router.get('/userprofile',isLoggedIn, async(req, res) => {
   const user = req.user;
   const loggedInUser = await userModel.findOne({ _id: user._id });
   const song = await songModel.findOne({_id: req.params.id}).populate('userid')
   res.render('userProfile',{loggedInUser,song})
+});
+router.get('/editprofile',isLoggedIn, async(req, res) => {
+  const user = req.user;
+  const loggedInUser = await userModel.findOne({ _id: user._id });
+  const song = await songModel.findOne({_id: req.params.id}).populate('userid')
+  res.render('editprofile',{loggedInUser,song})
 });
 
 router.get('/songs',isLoggedIn,async (req, res) => {

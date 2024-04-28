@@ -1,0 +1,284 @@
+<% include ./partials/header.ejs %>
+<style>
+    .form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        background: linear-gradient(45deg,  blue,white);
+        padding: 30px;
+        width: 450px;
+        border-radius: 20px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+          Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+        transition: background 0.3s ease;
+      }
+      
+      .form:hover {
+        background: linear-gradient(45deg, white, blue);
+      }
+      
+      ::placeholder {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+          Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+      }
+      
+      .form button {
+        align-self: flex-end;
+      }
+      
+      .flex-column > label {
+        color: #151717;
+        font-weight: 600;
+      }
+      
+      .inputForm {
+        border: 1.5px solid #ecedec;
+        border-radius: 10em;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        padding-left: 10px;
+        transition: 0.2s ease-in-out;
+        background-color: white;
+      }
+      
+      .input {
+        margin-left: 10px;
+        border-radius: 10rem;
+        border: none;
+        width: 100%;
+        height: 100%;
+      }
+      
+      .input:focus {
+        outline: none;
+      }
+      
+     
+      
+      .flex-row {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+        justify-content: space-between;
+      }
+      
+      .flex-row > div > label {
+        font-size: 14px;
+        color: black;
+        font-weight: 400;
+      }
+      
+      .span {
+        font-size: 14px;
+        margin-left: 5px;
+        color: white;
+        font-weight: 500;
+        cursor: pointer;
+      }
+      
+      .button-submit {
+        position: relative;
+        display: inline-block;
+        padding: 15px 30px;
+        text-align: center;
+        letter-spacing: 1px;
+        text-decoration: none;
+        background: transparent;
+        transition: ease-out 0.5s;
+        border: 2px solid;
+        border-radius: 10em;
+        box-shadow: inset 0 0 0 0 blue;
+        margin: 20px 0 10px 0;
+        color: white;
+        font-size: 15px;
+        font-weight: 500;
+        height: 50px;
+        width: 100%;
+        cursor: pointer;
+      }
+      
+      .button-submit:hover {
+        color: white;
+        box-shadow: inset 0 -100px 0 0 rgb(83, 83, 255);
+      }
+      
+      .button-submit:active {
+        transform: scale(0.9);
+      }
+      
+      .p {
+        text-align: center;
+        color: black;
+        font-size: 14px;
+        margin: 5px 0;
+      }
+      
+      .btn {
+        margin-top: 10px;
+        width: 100%;
+        height: 50px;
+        border-radius: 10em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: 500;
+        gap: 10px;
+        border: 1px solid #ededef;
+        background-color: white;
+        cursor: pointer;
+        transition: 0.2s ease-in-out;
+      }
+      
+      .btn:hover {
+        border: 1px solid #2d79f3;
+      }
+      
+</style>
+<div class="div">
+    <nav class="flex  h-fit flex-col">
+       
+        <div class="div flex  bg-zinc-100 text-[#000] items-center justify-between py-5 px-5 lg:px-14 ">
+            <div class="left ">
+                <a class="text-bold inline-flex text-xl font-bold items-center" href="/"> <img class="h-16 w-24" src="/images/20230430_211720_0000-removebg-preview.png" alt=""> Tune <span>Music</span></a>
+            </div>
+            <div class="right">
+                <ul class="flex lg:text-lg text-lg md:text-sm md:gap-5  font-['gilroy'] gap-8 items-center  ">
+                    <li class=" font-bold"><a href="/"> Home</a></li>
+                    <li class=" font-bold"><a href="/userprofile">Dashboard</a></li>
+                    <li class=" font-bold"><a href="/uploadMusic">Upload Songs</a></li>
+                    <li class=" font-bold"><a href="/songs">Your Songs</a></li>
+                   
+                   
+                    <% if(loggedInUser) { %>
+                      <li class="font-bold"><a href="/logout">Logout</a></li>
+                    <% } else { %>
+                      <li class="font-bold"><a href="/login">Login</a></li>
+                    <% } %>
+                   
+                    <h4><i id="menu-btn" class="  ri-menu-line"></i></h4>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div id="slidebar" class=" text-black bg-zinc-100">
+        <div class="left">
+            <a class="text-bold inline-flex text-2xl items-center justify-center" href="/"> <img class="h-16 w-24" src="/images/20230430_211720_0000-removebg-preview.png" alt=""> Tune <span>Music</span></a>
+        </div>
+        <a href="/"> <i class="ri-home-5-fill pr-2"></i> Home</a>
+        <a href="/userprofile"> <i class="ri-home-5-fill pr-2"></i> Dashboard</a>
+        <a href="/uploadMusic"><i class="ri-phone-camera-fill pr-2"></i>Upload Songs</a>
+        <a href="/songs"> <i class="ri-gallery-line pr-2"></i>Your Songs</a>
+  
+        <!-- <a href="/register">Register</a> -->
+        <% if(loggedInUser) { %>
+        <a href="/login"><i class="ri-logout-box-line pr-2"></i>Logout</a>
+          <% } else { %>
+        <a href="/login"><i class="ri-login-box-line pr-2"></i>Login</a>
+        <% } %>
+    </div>
+    <div class="font-sans antialiased text-gray-900 leading-normal tracking-wider bg-cover"
+        style="background-image:url('https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');">
+    
+    
+    
+        <div class="max-w-4xl flex items-center h-auto lg:h-[85vh] flex-wrap mx-auto my-20 lg:my-0">
+    
+            <!--Main Col-->
+            <div id="profile"
+                class="w-full lg:w-3/5 rounded-lg lg:rounded-l-lg lg:rounded-r-none shadow-2xl bg-white opacity-90 mx-6 lg:mx-0">
+    
+    
+                <div class="p-4 md:p-12 text-center lg:text-left">
+                    <!-- Image for mobile view-->
+                    <div class="block lg:hidden rounded-full shadow-xl mx-auto -mt-16 h-48 w-48 bg-cover bg-center"
+                        style="background-image: url('/images/background.avif')"></div>
+    
+             
+                    <form enctype="multipart/form-data" action="/updateprofile" method="post" class="form">
+                        <div class="flex-column">
+                          <label>Email </label>
+                        </div>
+                        <div class="inputForm">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="20"
+                            viewBox="0 0 32 32"
+                            height="20"
+                          >
+                            <g data-name="Layer 3" id="Layer_3">
+                              <path
+                                d="m30.853 13.87a15 15 0 0 0 -29.729 4.082 15.1 15.1 0 0 0 12.876 12.918 15.6 15.6 0 0 0 2.016.13 14.85 14.85 0 0 0 7.715-2.145 1 1 0 1 0 -1.031-1.711 13.007 13.007 0 1 1 5.458-6.529 2.149 2.149 0 0 1 -4.158-.759v-10.856a1 1 0 0 0 -2 0v1.726a8 8 0 1 0 .2 10.325 4.135 4.135 0 0 0 7.83.274 15.2 15.2 0 0 0 .823-7.455zm-14.853 8.13a6 6 0 1 1 6-6 6.006 6.006 0 0 1 -6 6z"
+                              ></path>
+                            </g>
+                          </svg>
+                          <input value="<%=loggedInUser.email%>" name="email" placeholder="Enter your Email" class="input" type="text" />
+                        </div>
+
+                        <div class="flex-column">
+                          <label>Name</label>
+                        </div>
+                        <div class="inputForm">
+                            <i class="ri-message-3-line text-xl"></i>
+                          <input value="<%=loggedInUser.name%>" name="name" placeholder="Enter your Name" class="input " style="outline: none;" type="text" />
+                        </div>
+                      
+                        <div class="flex-column">
+                          <label>Contact Number </label>
+                        </div>
+                        <div class="inputForm">
+                            <i class="ri-contacts-line text-xl"></i>
+                          <input value="<%=loggedInUser.contact%>" name="contact" placeholder="Enter your Contact" class="input" type="number" />
+                        </div>
+                        <div class="flex-column">
+                          <label>Upload Image </label>
+                        </div>
+                        <div id="editbtn"  class="inputForm cursor-pointer">
+                            <i class="ri-image-2-line text-xl"></i>
+                          <div class="input flex  items-center">&nbsp; Upload Image</div>
+                        </div>
+                      <input id="imginp" name="image" hidden type="file">
+                        
+                        <button type="submit" class="button-submit">Edit Profile</button>
+                      
+                      
+                       
+                      </form>
+                      
+    
+                    <!-- Use https://simpleicons.org/ to find the svg for your preferred product -->
+    
+                </div>
+    
+            </div>
+    
+            <!--Img Col-->
+            <div class="w-full  lg:w-2/5 h-[35vw]  overflow-hidden lg:rounded-r-lg shadow-2xl hidden lg:block">
+              <%if(loggedInUser.image && loggedInUser.image.length > 0){%>
+                    <img src="<%=loggedInUser.image%>" class="h-full w-full object-cover">
+               <%}else{%>
+                <img src="/images/ladki image.jpg" class="h-full w-full object-cover">
+                <%}%>
+
+                <!-- Image from: http://unsplash.com/photos/MP0IUfwrn0A -->
+    
+            </div>
+    
+    
+            
+    
+        </div>
+    
+      
+    
+    </div>
+</div>
+<script src="/javascripts/sidebar.js"></script>
+<script>
+    document.querySelector("#editbtn")
+    .addEventListener("click",function(){
+      document.querySelector("#imginp").click();
+    });
+  
+</script>

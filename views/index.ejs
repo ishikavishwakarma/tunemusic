@@ -128,7 +128,7 @@
 
   
   .footer {
-    background-color: #1C1D1D;
+    background-color: #303030;
     padding: 80px 0;
   }
   
@@ -223,9 +223,9 @@
 <div>
     <nav class="flex  h-fit flex-col">
        
-        <div class="div flex bg-[#000] text-[#fff] items-center justify-between py-5 px-5 lg:px-14 ">
+        <div class="div flex  bg-zinc-100 text-[#000] items-center justify-between py-5 px-5 lg:px-14 ">
             <div class="left ">
-                <a class="text-bold inline-flex items-center" href="/"> <img class="h-16 w-24" src="/images/20230430_211720_0000-removebg-preview.png" alt=""> Tune <span>Music</span></a>
+                <a class="text-bold inline-flex text-xl font-bold items-center" href="/"> <img class="h-16 w-24" src="/images/20230430_211720_0000-removebg-preview.png" alt=""> Tune <span>Music</span></a>
             </div>
             <div class="right">
                 <ul class="flex lg:text-lg text-lg md:text-sm md:gap-5  font-['gilroy'] gap-8 items-center  ">
@@ -246,9 +246,9 @@
             </div>
         </div>
     </nav>
-    <div id="slidebar" class=" bg-[#000]">
+    <div id="slidebar" class=" text-black bg-zinc-100">
         <div class="left">
-            <a class="text-bold " href="/">Tune <span>Music</span></a>
+            <a class="text-bold inline-flex text-2xl items-center justify-center" href="/"> <img class="h-16 w-24" src="/images/20230430_211720_0000-removebg-preview.png" alt=""> Tune <span>Music</span></a>
         </div>
         <a href="/"> <i class="ri-home-5-fill pr-2"></i> Home</a>
         <a href="/userprofile"> <i class="ri-home-5-fill pr-2"></i> Dashboard</a>
@@ -308,12 +308,15 @@
           <div class="div flex flex-col gap-5 py-5">
             <h1 class="xl:text-3xl text-xl font-[montserrat]">Unlimited Distribution Starting at ₹1299*/year</h1>
             <p class="text-xs xl:text-lg">Get your music on Spotify, Apple Music, Wynk, Hungama, YouTube, JioSaavn, Instagram and more. Keep 100% ownership of your music and stay in control of your career.</p>
-            <button class="learn-more">
-              <span class="circle" aria-hidden="true">
-              <span class="icon arrow"></span>
-              </span>
-              <span class="button-text"> Create yours</span>
-            </button>
+           <a href="/uploadMusic">
+
+             <button class="learn-more">
+                <span class="circle" aria-hidden="true">
+                <span class="icon arrow"></span>
+                </span>
+                <span style="color: #fff; padding-left: 10px;" class="button-text "> Create yours</span>
+              </button>
+           </a> 
           </div>
         </div>
       </div>
@@ -361,17 +364,17 @@
       </div>
        
       </div>
-      <div class="bottom bg-[#1C1E1F] lg:pl-48 py-5 lg:px-20 h-[80vh] flex lg:flex-row flex-col gap-10 items-center w-full">
-        <div class="div h-[25vw] lg:block hidden w-[25vw] ">
-          <img class="h-full w-full " src="https://www.tunecore.in/wp-content/uploads/sites/15/2022/03/Adela.png" alt="">
+      <div class="bottom bg-zinc-300 lg:pl-48 py-5 lg:px-20 h-[80vh] flex lg:flex-row flex-col gap-10 items-center w-full">
+        <div class="div h-[25vw] bg-zinc-500 lg:block hidden w-[25vw] ">
+          <img class="h-full w-full object-cover " src="https://www.tunecore.in/wp-content/uploads/sites/15/2022/03/Adela.png" alt="">
         </div>
-        <div class="div h-96 font-['montserrat'] text-white flex flex-col gap-5 px-5 lg:pr-32">
+        <div class="div h-96 font-['montserrat'] text-black flex flex-col gap-5 px-5 lg:pr-32">
           <h1 class="lg:text-3xl font-bold">Why Choose <span class="span"> TUNEMUSIC</span> </h1>
           <h4 class="text-xl font-[700]">Unlimited Worldwide Music Distribution</h4>
           <p class="lg:text-lg font-light">Get your music playing in over 150 digital stores and streaming services across 200+ countries worldwide. Starting at ₹1299*/year.</p>
           <h4 class="text-xl font-[700]">Unlimited Releases to Social Platforms</h4>
           <p class="text-lg font-light">Get your music on TikTok, YouTube, Instagram, Facebook and Resso for no annual fee.</p>
-         <a href=""> <button class="learn-more">
+         <a href="/login"> <button class="learn-more">
             <span class="circle" aria-hidden="true">
             <span class="icon arrow"></span>
             </span>
@@ -379,9 +382,9 @@
           </button> </a>
         </div>
         </div>
-        <div class="div bg-[#141414] h-96 flex flex-col items-center justify-center w-full">
-<h1 class="text-white font-[700] lg:text-5xl">How to Sell Your <span class="span">Music Online</span></h1>
-<p class="text-white px-5 lg:px-28 text-center lg:font-[600] lg:text-lg pt-5">Before TuneMusic, artists needed a label to get their music sold online. In 2006, we disrupted the industry by partnering directly with Digital Stores to allow any musician to sell their songs worldwide. Today, TuneMusic is the world's leading digital music aggregator. Choose an unlimited distribution plan, upload your music, and we'll do the rest. Your music will hit top digital stores, like Spotify and Apple Music, in no time.</p>
+        <div class="div bg-zinc-200  h-96 flex flex-col items-center justify-center w-full">
+<h1 class="text-black font-[700] lg:text-5xl">How to Sell Your <span class="span">Music Online</span></h1>
+<p class="text-black px-5 lg:px-28 text-center lg:font-[600] lg:text-lg pt-5">Before TuneMusic, artists needed a label to get their music sold online. In 2006, we disrupted the industry by partnering directly with Digital Stores to allow any musician to sell their songs worldwide. Today, TuneMusic is the world's leading digital music aggregator. Choose an unlimited distribution plan, upload your music, and we'll do the rest. Your music will hit top digital stores, like Spotify and Apple Music, in no time.</p>
         </div>
       </div>
 

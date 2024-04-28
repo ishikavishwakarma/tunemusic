@@ -1,88 +1,135 @@
 <% include ./partials/header.ejs %>
 <div class="div">
-    <nav class="flex  h-fit flex-col">
-       
-        <div class="div flex bg-[#000] text-[#fff] items-center justify-between py-5 px-5 lg:px-14 ">
-            <div class="left ">
-                <a class="text-bold inline-flex items-center" href="/"> <img class="h-16 w-24" src="/images/20230430_211720_0000-removebg-preview.png" alt=""> Tune <span>Music</span></a>
-            </div>
-            <div class="right">
-                <ul class="flex lg:text-lg text-lg md:text-sm md:gap-5  font-['gilroy'] gap-8 items-center  ">
-                    <li class=" font-bold"><a href="/"> Home</a></li>
-                    <li class=" font-bold"><a href="/userprofile">Dashboard</a></li>
-                    <li class=" font-bold"><a href="/uploadMusic">Upload Songs</a></li>
-                    <li class=" font-bold"><a href="/songs">Your Songs</a></li>
-           
-                   
-                    <% if(loggedInUser) { %>
-                      <li class="font-bold"><a href="/logout">Logout</a></li>
-                    <% } else { %>
-                      <li class="font-bold"><a href="/login">Login</a></li>
-                    <% } %>
-                   
-                    <h4><i id="menu-btn" class="  ri-menu-line"></i></h4>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <div id="slidebar" class=" bg-[#000]">
-        <div class="left">
-            <a class="text-bold " href="/">Tune <span>Music</span></a>
-        </div>
-        <a href="/"> <i class="ri-home-5-fill pr-2"></i> Home</a>
-        <a href="/"> <i class="ri-home-5-fill pr-2"></i> Dashboard</a>
-        <a href="/uploadMusic"><i class="ri-phone-camera-fill pr-2"></i>Upload Songs</a>
-        <a href="/songs"> <i class="ri-gallery-line pr-2"></i>Your Songs</a>
-    
-        <!-- <a href="/register">Register</a> -->
-        <% if(loggedInUser) { %>
-        <a href="/login"><i class="ri-logout-box-line pr-2"></i>Logout</a>
+  <nav class="flex h-fit flex-col">
+    <div
+      class="div flex bg-zinc-100 text-[#000] items-center justify-between py-5 px-5 lg:px-14"
+    >
+      <div class="left">
+        <a
+          class="text-bold inline-flex text-xl font-bold items-center"
+          href="/"
+        >
+          <img
+            class="h-16 w-24"
+            src="/images/20230430_211720_0000-removebg-preview.png"
+            alt=""
+          />
+          Tune <span>Music</span></a
+        >
+      </div>
+      <div class="right">
+        <ul
+          class="flex lg:text-lg text-lg md:text-sm md:gap-5 font-['gilroy'] gap-8 items-center"
+        >
+          <li class="font-bold"><a href="/"> Home</a></li>
+          <li class="font-bold"><a href="/userprofile">Dashboard</a></li>
+          <li class="font-bold"><a href="/uploadMusic">Upload Songs</a></li>
+          <li class="font-bold"><a href="/songs">Your Songs</a></li>
+
+          <% if(loggedInUser) { %>
+          <li class="font-bold"><a href="/logout">Logout</a></li>
           <% } else { %>
-        <a href="/login"><i class="ri-login-box-line pr-2"></i>Login</a>
-        <% } %>
+          <li class="font-bold"><a href="/login">Login</a></li>
+          <% } %>
+
+          <h4><i id="menu-btn" class="ri-menu-line"></i></h4>
+        </ul>
+      </div>
     </div>
-    <div class="div p-5 h-full w-full">
-        
-        <div
-  class="flex flex-col h-[80vh] w-full rounded-lg  text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-black  md:flex-row">
-  <img
-    class=" rounded-t-lg object-cover md:h-auto md:w-[30vw] md:!rounded-none md:!rounded-s-lg"
-    src="<%=song.posterUrl%>"
-    alt="" />
-  <div class="flex flex-col gap-3 justify-start p-6">
-    <h5 class="mb-2 text-xl uppercase font-medium"><%=song.title%></h5>
-    <p class="mb-4 text-base">
-        Underneath the stars, we found solace in whispered secrets, now buried in the sands of time.
-    </p>
-    <!-- <h5 class="mb-2 text-xl uppercase font-medium"><%=song.artistName%></h5> -->
-    <h5 class="mb-2 text-xl uppercase font-medium">NAME :- <%=song.userid.name%> </h5>
-    <h5 class="mb-2 text-xl uppercase font-medium">instagramId :- <%=song.instagramId%> </h5>
-    <h5 class="mb-2 text-xl uppercase font-medium">isrcCode :- <%=song.isrcCode%> </h5>
-    <h5 class="mb-2 text-xl uppercase font-medium">upcCode :- <%=song.upcCode%> </h5>
-    <h5 class="mb-2 text-xl uppercase font-medium">genre :- <%=song.genre%> </h5>
-    <p class="mb-4 text-base">
-       The song status is <span class="uppercase text-lg font-semibold">   <% if (song.status === 'pending') { %>
-        <a  class=" items-center  py-2  font-medium text-lg text-center text-black ">
-         Pending
-        </a>
-      <% } else if (song.status === 'approve') { %>
-        <a  class=" items-center  py-2  text-lg font-medium text-center text-black rounded-lg  focus:ring-4 focus:outline-none focus:ring-blue-300 ">  
-          Approved
-        </a>
-      <% } else if (song.status === 'reject') { %>
-        <a href="#" class=" items-center  py-2 text-lg font-medium text-center text-black">
-         Rejected
-        </a>
-      <% } %></span>
-    </p>
-   
-   <audio class="text-black pt-5" controls>
-    <source src="/stream/<%= song._id %>" type="audio/mpeg">
-    Your browser does not support the audio element.
-  </audio>
-  
+  </nav>
+  <div id="slidebar" class="text-black bg-zinc-100">
+    <div class="left">
+      <a
+        class="text-bold inline-flex text-2xl items-center justify-center"
+        href="/"
+      >
+        <img
+          class="h-16 w-24"
+          src="/images/20230430_211720_0000-removebg-preview.png"
+          alt=""
+        />
+        Tune <span>Music</span></a
+      >
+    </div>
+    <a href="/"> <i class="ri-home-5-fill pr-2"></i> Home</a>
+    <a href="/userprofile"> <i class="ri-home-5-fill pr-2"></i> Dashboard</a>
+    <a href="/uploadMusic"
+      ><i class="ri-phone-camera-fill pr-2"></i>Upload Songs</a
+    >
+    <a href="/songs"> <i class="ri-gallery-line pr-2"></i>Your Songs</a>
+
+    <!-- <a href="/register">Register</a> -->
+    <% if(loggedInUser) { %>
+    <a href="/login"><i class="ri-logout-box-line pr-2"></i>Logout</a>
+    <% } else { %>
+    <a href="/login"><i class="ri-login-box-line pr-2"></i>Login</a>
+    <% } %>
   </div>
-</div>
+  <div class="div p-5 h-full w-full">
+    <div
+      class="flex flex-col h-[80vh] w-full rounded-lg text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-black md:flex-row"
+    >
+      <img
+        class="rounded-t-lg object-cover md:h-auto md:w-[30vw] md:!rounded-none md:!rounded-s-lg"
+        src="<%=song.posterUrl%>"
+        alt=""
+      />
+      <div class="flex flex-col gap-3 justify-start p-6">
+        <h5 class="mb-2 text-xl uppercase font-medium"><%=song.title%></h5>
+        <p class="mb-4 text-base">
+          Underneath the stars, we found solace in whispered secrets, now buried
+          in the sands of time.
+        </p>
+        <!-- <h5 class="mb-2 text-xl uppercase font-medium"><%=song.artistName%></h5> -->
+        <h5 class="mb-2 text-xl uppercase font-medium">
+          NAME :- <%=song.userid.name%>
+        </h5>
+        <h5 class="mb-2 text-xl uppercase font-medium">
+          instagramId :- <%=song.instagramId%>
+        </h5>
+        <h5 class="mb-2 text-xl uppercase font-medium">
+          isrcCode :- <%=song.isrcCode%>
+        </h5>
+        <h5 class="mb-2 text-xl uppercase font-medium">
+          upcCode :- <%=song.upcCode%>
+        </h5>
+        <h5 class="mb-2 text-xl uppercase font-medium">
+          genre :- <%=song.genre%>
+        </h5>
+        <p class="mb-4 text-base">
+          The song status is
+          <span class="uppercase text-lg font-semibold">
+            <% if (song.status === 'pending') { %>
+            <a
+              class="items-center py-2 font-medium text-lg text-center text-black"
+            >
+              Pending
+            </a>
+            <% } else if (song.status === 'approve') { %>
+            <a
+              class="items-center py-2 text-lg font-medium text-center text-black rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300"
+            >
+              Approved
+            </a>
+            <% } else if (song.status === 'reject') { %>
+            <a
+              href="#"
+              class="items-center py-2 text-lg font-medium text-center text-black"
+            >
+              Rejected
+            </a>
+            <% } %>
+          </span>
+        </p>
+
+        <audio class="text-black pt-5" controls>
+          <source src="/stream/<%= song._id %>" type="audio/mpeg" />
+          Your browser does not support the audio element.
+        </audio>
+      </div>
     </div>
+  </div>
+  
 </div>
 
+<script src="/javascripts/sidebar.js"></script>
