@@ -105,16 +105,17 @@
   <nav class="flex  h-fit flex-col">
        
     <div class="div flex bg-[#000] text-[#fff] items-center justify-between py-5 px-5 lg:px-14 ">
-        <div class="left">
-            <a class="text-bold " href="/">Tune <span>Music</span></a>
-        </div>
+      <div class="left ">
+        <a class="text-bold inline-flex items-center" href="/"> <img class="h-16 w-24" src="/images/20230430_211720_0000-removebg-preview.png" alt=""> Tune <span>Music</span></a>
+    </div>
         <div class="right">
             <ul class="flex lg:text-lg text-lg md:text-sm md:gap-5  font-['gilroy'] gap-8 items-center  ">
                 <li class=" font-bold"><a href="/"> Home</a></li>
+                <li class=" font-bold"><a href="/userprofile">Dashboard</a></li>
                 <li class=" font-bold"><a href="/uploadMusic">Upload Songs</a></li>
                 <li class=" font-bold"><a href="/songs">Your Songs</a></li>
                
-                <li class=" font-bold"><a href="/contact">Contact Us</a></li>
+               
                
                 <% if(loggedInUser) { %>
                   <li class="font-bold"><a href="/logout">Logout</a></li>
@@ -132,10 +133,11 @@
         <a class="text-bold " href="/">Tune <span>Music</span></a>
     </div>
     <a href="/"> <i class="ri-home-5-fill pr-2"></i> Home</a>
+    <a href="/userprofile"> <i class="ri-home-5-fill pr-2"></i> Dashboard</a>
     <a href="/uploadMusic"><i class="ri-phone-camera-fill pr-2"></i>Upload Songs</a>
     <a href="/songs"> <i class="ri-gallery-line pr-2"></i>Your Songs</a>
 
-    <a href="/contact"> <i class="ri-phone-line pr-2"></i> Contact</a>
+   
     <!-- <a href="/register">Register</a> -->
     <% if(loggedInUser) { %>
     <a href="/login"><i class="ri-logout-box-line pr-2"></i>Logout</a>
@@ -158,7 +160,7 @@
                     <div class="div">
                         <label id="name-label"  for="name"
                           >Choose song</label>
-                          <input type="file"name="filename" accept="audio/*" required>
+                          <input class="text-white" type="file"name="filename" accept="audio/*" required>
                     </div>
                    
                     <div class="div">
@@ -169,9 +171,9 @@
                    
                     <div class="div">
                       
-                        <label id="name-label"  for="name"
+                        <label id="name-label" class="text-white" for="name"
                           >Choose image</label>
-                          <input type="file" name="posterUrl" accept="image/*" required>
+                          <input class="text-white" type="file" name="posterUrl" accept="image/*" required>
                     </div>
                    
                     <div class="div">
@@ -207,7 +209,7 @@
                     </div>
                    
                 </div>    
-                <button type="submit" id="submit">Submit</button>
+                <button class="bg-white text-black font-bold" type="submit" id="submit">Submit</button>
               </form>
             </main>
           </div>

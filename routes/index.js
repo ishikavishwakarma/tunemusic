@@ -39,8 +39,11 @@ conn.once('open',()=>{
   bucketName:"audioSongs"
  })
 })
-router.get("/uploadMusic", isLoggedIn,  function (req, res, next) {
-  res.render("uploadmusic");
+router.get("/uploadMusic", isLoggedIn, async function (req, res, next) {
+  const user = req.user;
+  const loggedInUser = await userModel.findOne({ _id: user._id });
+
+  res.render("uploadmusic",{ loggedInUser});
 });
 // router.post('/uploadMusic', upload.single('audio'), isLoggedIn, async (req, res) => {
 //   try {
@@ -135,6 +138,7 @@ router.get('/home',isAdmin, async(req, res) => {
   const request = await songModel.find({ status: { $ne: 'approve' } }).limit(3);
   const users = await userModel.find({ role: { $ne: "admin" } });
   const user = await userModel.find({ role: { $ne: "admin" } }).limit(3);
+  console.log(request)
   res.render('home',{admin,songs,users,user,request,requests})
 });
 router.get('/requestsongs',isAdmin, async(req, res) => {
@@ -149,7 +153,19 @@ router.get('/requestsongs',isAdmin, async(req, res) => {
     res.status(500).json({ message: 'Internal Server Error' });
   }
 });
-router.post('/approve-song/:id', async (req, res) => {
+router.get('/allusers',isAdmin, async(req, res) => {
+
+  try {
+    const songs = await songModel.find({ status: { $ne: 'approve' } });
+    const admin = await userModel.findOne({ role: "admin" });
+    const users = await userModel.find({ role: { $ne: "admin" } }).populate('songs');
+    res.render('allusers',{admin,songs,users})
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+router.post('/approve-song/:id',isAdmin, async (req, res) => {
   try {
     const { id } = req.params;
     // Find the song by ID and update its status
@@ -164,7 +180,8 @@ router.post('/approve-song/:id', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
-router.get('/deletesong/:id', async (req, res) => {
+
+router.get('/deletesong/:id',isAdmin, async (req, res) => {
   try {
     const { id } = req.params;
     // Find the song by ID and delete it
@@ -184,7 +201,7 @@ router.get('/deletesong/:id', async (req, res) => {
     res.status(500).send('Internal Server Error');
   }
 });
-router.post('/reject-song/:id', async (req, res) => {
+router.post('/reject-song/:id',isAdmin, async (req, res) => {
   try {
     const { id } = req.params;
     // Find the song by ID and update its status
@@ -216,10 +233,22 @@ router.get('/adminsongs/:id',isAdmin, async(req, res) => {
   const song = await songModel.findOne({_id: req.params.id}).populate('userid')
   res.render('singleSong',{admin,song})
 });
+router.get('/usersongs/:id',isLoggedIn, async(req, res) => {
+  const user = req.user;
+  const loggedInUser = await userModel.findOne({ _id: user._id });
+  const song = await songModel.findOne({_id: req.params.id}).populate('userid')
+  res.render('usersingle',{loggedInUser,song})
+});
+router.get('/userprofile',isLoggedIn, async(req, res) => {
+  const user = req.user;
+  const loggedInUser = await userModel.findOne({ _id: user._id });
+  const song = await songModel.findOne({_id: req.params.id}).populate('userid')
+  res.render('userProfile',{loggedInUser,song})
+});
 
 router.get('/songs',isLoggedIn,async (req, res) => {
   const user = req.user;
-  const loggedInUser = await userModel.findOne({ _id: user._id });
+  const loggedInUser = await userModel.findOne({ _id: user._id }).populate('songs');
   res.render('userSongs', { loggedInUser})
 });
 router.post('/uploadMusic',isLoggedIn, async (req, res) => {

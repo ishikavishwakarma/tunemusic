@@ -3,16 +3,16 @@
     <nav class="flex  h-fit flex-col">
        
         <div class="div flex bg-[#000] text-[#fff] items-center justify-between py-5 px-5 lg:px-14 ">
-            <div class="left">
-                <a class="text-bold " href="/">Tune <span>Music</span></a>
+            <div class="left ">
+                <a class="text-bold inline-flex items-center" href="/"> <img class="h-16 w-24" src="/images/20230430_211720_0000-removebg-preview.png" alt=""> Tune <span>Music</span></a>
             </div>
             <div class="right">
                 <ul class="flex lg:text-lg text-lg md:text-sm md:gap-5  font-['gilroy'] gap-8 items-center  ">
                     <li class=" font-bold"><a href="/"> Home</a></li>
+                    <li class=" font-bold"><a href="/userprofile">Dashboard</a></li>
                     <li class=" font-bold"><a href="/uploadMusic">Upload Songs</a></li>
                     <li class=" font-bold"><a href="/songs">Your Songs</a></li>
-                   
-                    <li class=" font-bold"><a href="/contact">Contact Us</a></li>
+           
                    
                     <% if(loggedInUser) { %>
                       <li class="font-bold"><a href="/logout">Logout</a></li>
@@ -30,15 +30,63 @@
             <a class="text-bold " href="/">Tune <span>Music</span></a>
         </div>
         <a href="/"> <i class="ri-home-5-fill pr-2"></i> Home</a>
+        <a href="/userprofile"> <i class="ri-home-5-fill pr-2"></i> Dashboard</a>
         <a href="/uploadMusic"><i class="ri-phone-camera-fill pr-2"></i>Upload Songs</a>
         <a href="/songs"> <i class="ri-gallery-line pr-2"></i>Your Songs</a>
     
-        <a href="/contact"> <i class="ri-phone-line pr-2"></i> Contact</a>
         <!-- <a href="/register">Register</a> -->
         <% if(loggedInUser) { %>
         <a href="/login"><i class="ri-logout-box-line pr-2"></i>Logout</a>
           <% } else { %>
         <a href="/login"><i class="ri-login-box-line pr-2"></i>Login</a>
         <% } %>
+    </div>
+    <div class="div p-5 h-full w-full">
+        <div class="div h-96 w-full ">
+            <%if(loggedInUser.songs && loggedInUser.songs.length > 0){%>
+              <%loggedInUser.songs.forEach(function(song){%>  
+                <div class="max-w-96 bg-white border border-gray-200 rounded-lg shadow dark:bg-black dark:border-gray-200">
+                    <a href="#">
+                        <img class="rounded-t-lg h-48 w-full object-cover" src="<%=song.posterUrl%>" alt="" />
+                    </a>
+                    <div class="p-5 flex flex-col gap-5">
+                        
+                            <h5 class="mb-2 text-2xl uppercase font-bold tracking-tight text-gray-100 dark:text-white"><%=song.title%></h5>
+                     <div class="para flex items-center  gap-6">
+        
+                         <p class="mb-3 font-n text-gray-100 dark:text-gray-100"><%=song.artistName%></p>
+                         <% 
+                                                                // Assuming event.eventDate is a JavaScript Date object
+                                                                const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
+                                                                const formattedDate = song.releaseDate.toLocaleDateString(undefined, options);
+                                                            %>
+                         <p class="mb-3 font-normal text-gray-100 dark:text-gray-100"><%=formattedDate%></p>
+                         <% if (song.status === 'pending') { %>
+                            <a  class="uppercase items-center px-3 py-2 text-sm font-medium text-center text-white bg-orange-400 rounded-lg hover:bg-orange-500 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-orange-400 dark:hover:bg-orange-500 dark:focus:ring-blue-800">
+                             Pending
+                            </a>
+                          <% } else if (song.status === 'approve') { %>
+                            <a  class="uppercase items-center px-3 py-2 text-sm font-medium text-center text-white bg-green-400 rounded-lg hover:bg-green-500 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-green-400 dark:hover:bg-green-500 dark:focus:ring-blue-800">
+                              Approved
+                            </a>
+                          <% } else if (song.status === 'reject') { %>
+                            <a href="#" class="uppercase items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-400 rounded-lg hover:bg-red-500 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-red-400 dark:hover:bg-red-500 dark:focus:ring-blue-800">
+                             Rejected
+                            </a>
+                          <% } %>
+                     </div>
+                        <a href="/usersongs/<%=song._id%>" class=" items-center w-fit px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                            Read more
+                        </a>
+                    </div>
+                </div>
+                <%})%>   
+              <%}else{%>
+                <div class="div text-black text-2xl font-bold">No Requests here...</div>
+                <%}%>
+  
+  
+           </div>
+
     </div>
 </div>

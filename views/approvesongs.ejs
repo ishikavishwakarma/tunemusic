@@ -70,13 +70,24 @@
               </a>
            </li>
            <li>
-              <a href="#" class="flex items-center p-2  text-white rounded-lg dark:text-white hover:bg-blue-600 dark:hover:bg-blue-600  group">
-                 <svg class="flex-shrink-0 w-5 h-5 text-gray-100 transition duration-75 dark:text-gray-100 group-hover:text-gray-100 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
-                    <path d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z"/>
-                 </svg>
-                 <span class="flex-1 ms-3 whitespace-nowrap">Users</span>
-              </a>
-           </li>
+            <a
+              href="/allusers"
+              class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-blue-600 dark:hover:bg-blue-600 group"
+            >
+              <svg
+                class="flex-shrink-0 w-5 h-5 text-gray-100 transition duration-75 dark:text-gray-100 group-hover:text-gray-100 dark:group-hover:text-white"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor"
+                viewBox="0 0 20 18"
+              >
+                <path
+                  d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z"
+                />
+              </svg>
+              <span class="flex-1 ms-3 whitespace-nowrap">Users</span>
+            </a>
+          </li>
            <li>
               <a href="/requestsongs" class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-blue-600 dark:hover:bg-blue-600  group">
                 <i class=" text-xl ri-git-pull-request-line"></i>
@@ -101,6 +112,7 @@
   <div class="p-4 sm:ml-64">
     <div class="div p-4 mt-16">
         <div class="div h-96 w-full ">
+          <%if(songs && songs.length > 0){%>
             <%songs.forEach(function(song){%>  
       
               <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-blue-300 dark:border-gray-200">
@@ -110,7 +122,7 @@
                   <div class="p-5 flex flex-col gap-5">
                       
                           <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-black"><%=song.title%></h5>
-                   <div class="para flex items-center  justify-between">
+                   <div class="para flex items-center  gap-6">
       
                        <p class="mb-3 font-n text-gray-900 dark:text-gray-900"><%=song.artistName%></p>
                        <% 
@@ -119,18 +131,22 @@
                                                               const formattedDate = song.releaseDate.toLocaleDateString(undefined, options);
                                                           %>
                        <p class="mb-3 font-normal text-gray-900 dark:text-gray-900"><%=formattedDate%></p>
-                       <a href="#" class=" uppercase items-center px-3 py-2 text-sm font-medium text-center text-white bg-orange-400 rounded-lg hover:bg-orange-500 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-orange-400 dark:hover:bg-orange-500 dark:focus:ring-blue-800">
-                          <%=song.status%>
-                          
-                      </a>
+                       if (song.status === 'approve') { %>
+                        <a  class="uppercase items-center px-3 py-2 text-sm font-medium text-center text-white bg-green-400 rounded-lg hover:bg-green-500 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-green-400 dark:hover:bg-green-500 dark:focus:ring-blue-800">
+                          Approved
+                        </a>
                    </div>
                       <a href="/adminsongs/<%=song._id%>" class=" items-center w-fit px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                           Read more
                       </a>
                   </div>
               </div>
-              <%})%>   
+              <%})%> 
+              <%}else{%>
+                <div class="div text-black text-2xl font-bold">No Requests here...</div>
+                <%}%>  
                </div>
     </div>
   </div>
   </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
