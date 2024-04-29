@@ -6,16 +6,8 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const cloudinary = require("cloudinary").v2;
 require('dotenv').config({path:"./.env"})
-const mongoose = require("mongoose");
-const { Readable } = require("stream");
-var id3 = require("node-id3");
-var crypto = require("crypto");
-const formidable = require("formidable");
-var multer = require("multer");
 const { token } = require('morgan');
 
-const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
 /* GET home page. */
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
@@ -34,121 +26,31 @@ router.get('/UserHome',isLoggedIn, async function(req, res, next) {
 router.get("/register", async function (req, res, next) {
   res.render("register", { error: req.flash("error") });
 });
-const conn = mongoose.connection
-var gfsBucket 
-//  gfs
-conn.once('open',()=>{
- gfsBucket = new mongoose.mongo.GridFSBucket(conn.db,{
-  bucketName:"audioSongs"
- })
-})
+
 router.get("/uploadMusic", isLoggedIn, async function (req, res, next) {
   const user = req.user;
   const loggedInUser = await userModel.findOne({ _id: user._id });
 
   res.render("uploadmusic",{ loggedInUser});
 });
-// router.post('/uploadMusic', upload.single('audio'), isLoggedIn, async (req, res) => {
-//   try {
-//     const RandomName = crypto.randomBytes(20).toString('hex');
 
-//     // Save audio track
-//     const audioFile = req.file;
-//     if (!audioFile) {
-//       return res.status(400).send('No audio file uploaded');
-//     }
-//     const audioReadStream = Readable.from(audioFile.buffer);
-//     audioReadStream.pipe(gfsBucket.openUploadStream(RandomName));
 
-//     // Upload poster image to Cloudinary
-//     const posterFile = req.files && req.files.poster;
-//     let posterUrl;
-//     if (posterFile) {
-//       const posterImage = posterFile[0];
-//       const posterUploadResult = await cloudinary.uploader.upload({
-//         resource_type: 'image',
-//         folder: 'audio_posters'
-//       }, (error, result) => {
-//         if (error) {
-//           console.error('Error uploading poster image to Cloudinary:', error);
-//           throw error;
-//         }
-//         posterUrl = result.secure_url;
-
-//         // Create audio track entry
-//         createAudioTrack(req, res, RandomName, posterUrl);
-//       });
-//       Readable.from(posterImage.buffer).pipe(posterUploadResult);
-//     } else {
-//       // If no poster image provided
-//       createAudioTrack(req, res, RandomName, '');
-//     }
-//   } catch (error) {
-//     console.error('Error uploading audio track:', error);
-//     res.status(500).send('Internal Server Error');
-//   }
-// });
-// router.post('/uploadMusic', upload.fields([{ name: 'song', maxCount: 1 }, { name: 'posterUrl', maxCount: 1 }]), async function(req, res, next) {
-//   try {
-//     // Check if audio file is uploaded
-//     if (!req.files || !req.files.song || req.files.song.length === 0) {
-//       return res.status(400).send('No audio file uploaded.');
-//     }
-
-//     // Handle audio upload to GridFS
-//     const audioFile = req.files.song[0]; // Access the uploaded audio file
-//     const audioUploadStream = gfsBucket.openUploadStream();
-//     Readable.from(audioFile.buffer).pipe(audioUploadStream);
-
-//     audioUploadStream.on('error', (error) => {
-//       console.error('Error uploading audio to GridFS:', error);
-//       res.status(500).send('Error uploading audio.');
-//     });
-
-//     audioUploadStream.on('finish', async () => {
-//       console.log('Audio uploaded to GridFS successfully.');
-      
-//       // Upload image to Cloudinary if provided
-//       if (req.files.posterUrl && req.files.posterUrl.length > 0) {
-//         const imageFile = req.files.posterUrl; // Access the uploaded image file
-
-//         cloudinary.uploader.upload(imageFile.tempFilePath, async function(error, result) {
-//           if (error) {
-//             console.error('Error uploading image to Cloudinary:', error);
-//             return res.status(500).send('Error uploading image.');
-//           }
-
-//           const newSong = new songModel({
-//             posterUrl: result.secure_url
-//           });
-//           await newSong.save();
-//           console.log('Image uploaded to Cloudinary:', result);
-//           res.send('Audio and image uploaded successfully.');
-//         });
-//       } else {
-//         res.send('Audio uploaded successfully.');
-//       }
-//     });
-//   } catch (error) {
-//     console.error('Error handling upload:', error);
-//     res.status(500).send('Error handling upload.');
-//   }
-// });
 router.get('/home',isAdmin, async(req, res) => {
-  const admin = await userModel.findOne({ role: "admin" });
+  const adminuser = req.user;
+  const admin = await userModel.findOne({ _id: adminuser._id });
   const songs = await songModel.find()
   const requests = await songModel.find({ status: { $ne: 'approve' } });
   const request = await songModel.find({ status: { $ne: 'approve' } }).limit(3);
   const users = await userModel.find({ role: { $ne: "admin" } });
   const user = await userModel.find({ role: { $ne: "admin" } }).limit(3);
-  console.log(request)
   res.render('home',{admin,songs,users,user,request,requests})
 });
 router.get('/requestsongs',isAdmin, async(req, res) => {
 
   try {
     const songs = await songModel.find({ status: { $ne: 'approve' } });
-    const admin = await userModel.findOne({ role: "admin" });
+    const adminuser = req.user;
+    const admin = await userModel.findOne({ _id: adminuser._id });
     const users = await userModel.find({ role: { $ne: "admin" } });
     res.render('adminSongs',{admin,songs,users})
   } catch (err) {
@@ -160,7 +62,8 @@ router.get('/allusers',isAdmin, async(req, res) => {
 
   try {
     const songs = await songModel.find({ status: { $ne: 'approve' } });
-    const admin = await userModel.findOne({ role: "admin" });
+    const adminuser = req.user;
+    const admin = await userModel.findOne({ _id: adminuser._id });
     const users = await userModel.find({ role: { $ne: "admin" } }).populate('songs');
     res.render('allusers',{admin,songs,users})
   } catch (err) {
@@ -223,7 +126,8 @@ router.get('/adminsongs',isAdmin, async(req, res) => {
   
   try {
     const songs = await songModel.find({ status: 'approve' });
-    const admin = await userModel.findOne({ role: "admin" });
+    const adminuser = req.user;
+    const admin = await userModel.findOne({ _id: adminuser._id });
     const users = await userModel.find({ role: { $ne: "admin" } });
     res.render('approvesongs',{admin,songs,users})
   } catch (err) {
@@ -232,7 +136,8 @@ router.get('/adminsongs',isAdmin, async(req, res) => {
   }
 });
 router.get('/adminsongs/:id',isAdmin, async(req, res) => {
-  const admin = await userModel.findOne({ role: "admin" });
+  const adminuser = req.user;
+  const admin = await userModel.findOne({ _id: adminuser._id });
   const song = await songModel.findOne({_id: req.params.id}).populate('userid')
   res.render('singleSong',{admin,song})
 });

@@ -1,19 +1,19 @@
 <% include ./partials/header.ejs %>
 <style>
   .card {
-    background: linear-gradient(to right, #3b82f6 50%, #fff 50%);
+    background: linear-gradient(to right, #3b82f6 50%, #eceef1 50%);
     background-size: 200% 100%;
     background-position: right;
     transition: all 0.5s ease-out;
   }
   .card2 {
-    background: linear-gradient(to right, #1cc88a 50%, #fff 50%);
+    background: linear-gradient(to right, #1cc88a 50%, #eceef1 50%);
     background-size: 200% 100%;
     background-position: right;
     transition: all 0.5s ease-out;
   }
   .card3 {
-    background: linear-gradient(to right, #f6c23e 50%, #fff 50%);
+    background: linear-gradient(to right, #f6c23e 50%, #eceef1 50%);
     background-size: 200% 100%;
     background-position: right;
     transition: all 0.5s ease-out;
@@ -205,9 +205,9 @@
     <div class="div p-4 mt-16">
       <h1 class="text-zinc-800 text-2xl font-[600] pb-5">Dashboard</h1>
       <div class="border-gray-200 rounded-lg">
-        <div class="grid grid-cols-3 gap-4 mb-4">
+        <div class="grid grid-cols-1  lg:grid-cols-3 gap-4 mb-4">
           <div
-            class="flex card w-full items-center justify-between px-10 text-blue-600 bg-[#fff] border-l-4 border-blue-500 rounded-lg text-center hover:text-[#fff] h-32 dark:bg-gray-700"
+            class="flex card w-full items-center  justify-between px-10 text-blue-600  border-l-4 border-blue-500 rounded-lg text-center hover:text-[#fff] h-32 "
           >
             <div class="para flex flex-col items-start">
               <h2 class="text-xl font-[600]">Total Users</h2>
@@ -216,7 +216,7 @@
             <i class="ri-user-star-line text-5xl text-zinc-700"></i>
           </div>
           <div
-            class="flex card2 items-center justify-between px-10 text-[#1CC88A] bg-[#fff] border-l-4 border-[#1CC88A] rounded-lg text-center hover:text-[#fff] h-32 dark:dark:bg-zinc-700"
+            class="flex card2 items-center justify-between px-10 text-[#1CC88A]  border-l-4 border-[#1CC88A] rounded-lg text-center hover:text-[#fff] h-32 dark:dark:bg-zinc-700"
           >
             <div class="para flex flex-col items-start">
               <h2 class="text-xl font-[600]">Total Songs</h2>
@@ -241,7 +241,7 @@
         >
           <h1 class="text-3xl font-bold">Welcome Back to TuneMusic</h1>
         </div>
-        <div class="grid grid-cols-2 gap-4 mb-4">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4">
           <div
             class="flex h-full items-center justify-center rounded bg-gray-50 w-full"
           >
@@ -268,7 +268,13 @@
                   <li class="py-3 sm:py-4">
                     <div class="flex items-center">
                       <div class="flex-shrink-0">
-                        <img class="w-8 h-8 object-cover rounded-full" src="<%=users.image%>" alt="" />
+                        <%if(users.image && users.image.length>0){%>
+
+                          <img class="w-8 h-8 object-cover rounded-full" src="<%=users.image%>" alt="" />
+                       <%}else{%>
+                          <img class="w-8 h-8 object-cover rounded-full" src="/images/user.jpg" alt="" />
+
+                        <%}%>
                       </div>
                       <div class="flex-1 min-w-0 ms-4">
                         <p class="text-sm font-medium text-gray-900 truncate">

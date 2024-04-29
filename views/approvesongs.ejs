@@ -131,20 +131,24 @@
                                                               const formattedDate = song.releaseDate.toLocaleDateString(undefined, options);
                                                           %>
                        <p class="mb-3 font-normal text-gray-900 dark:text-gray-900"><%=formattedDate%></p>
-                      <% if (song.status === 'approve') { %>
-                        <a  class="uppercase items-center px-3 py-2 text-sm font-medium text-center text-white bg-green-400 rounded-lg hover:bg-green-500 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-green-400 dark:hover:bg-green-500 dark:focus:ring-blue-800">
-                          Approved
-                        </a>
-                        <%}%>
-                   </div>
-                      <a href="/adminsongs/<%=song._id%>" class=" items-center w-fit px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                          Read more
-                      </a>
+                      </div>
+                      
+                        <div class="div flex justify-between">
+
+                          <% if (song.status === 'approve') { %>
+                            <a  class="uppercase items-center px-3 py-2 text-sm font-medium text-center text-white bg-green-400 rounded-lg hover:bg-green-500 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-green-400 dark:hover:bg-green-500 dark:focus:ring-blue-800">
+                              Approved
+                            </a>
+                            <%}%>
+                         <a href="/adminsongs/<%=song._id%>" class=" items-center w-fit px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                             Read more
+                         </a>
+                        </div>
                   </div>
               </div>
               <%})%> 
               <%}else{%>
-                <div class="div text-black text-2xl font-bold">No Requests here...</div>
+                <div class="div text-black text-2xl font-bold">No Songs here...</div>
                 <%}%>  
                </div>
     </div>
