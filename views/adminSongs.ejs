@@ -113,10 +113,10 @@
     <div class="div p-4 mt-16">
 
         <h1 class="text-zinc-800 text-2xl font-[600] pb-5">Dashboard</h1>
-         <div class="div h-96 w-full ">
+         <div class="div grid grid-cols-3 place-items-center h-96 w-full ">
           <%if(songs && songs.length > 0){%>
             <%songs.forEach(function(song){%>  
-              <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-blue-300 dark:border-gray-200">
+              <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-blue-100 dark:border-gray-200">
                   <a href="#">
                       <img class="rounded-t-lg h-48 w-full object-cover" src="<%=song.posterUrl%>" alt="" />
                   </a>

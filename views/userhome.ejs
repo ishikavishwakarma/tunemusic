@@ -237,10 +237,11 @@
                    
                  
                      
-                 
-                      <li class="font-bold"><a href="/login">Login</a></li>
-                
-                   
+                    <% if(loggedInUser) { %>
+                        <li class="font-bold"><a href="/logout">Logout</a></li>
+                        <% } else { %>
+                        <li class="font-bold"><a href="/login">Login</a></li>
+                        <% } %>
                     <h4><i id="menu-btn" class="  ri-menu-line"></i></h4>
                 </ul>
             </div>
@@ -254,9 +255,11 @@
         <a href="/userprofile"> <i class="ri-home-5-fill pr-2"></i> Dashboard</a>
         <a href="/uploadMusic"><i class="ri-phone-camera-fill pr-2"></i>Upload Songs</a>
         <a href="/songs"> <i class="ri-gallery-line pr-2"></i>Your Songs</a>
-  
-        <a href="/login"><i class="ri-login-box-line pr-2"></i>Login</a>
-    
+        <% if(loggedInUser) { %>
+            <a href="/logout"><i class="ri-logout-box-line pr-2"></i>Logout</a>
+            <% } else { %>
+            <a href="/login"><i class="ri-login-box-line pr-2"></i>Login</a>
+            <% } %>
     </div>
     <div class="swiper mySwiper">
         <div class="swiper-wrapper">

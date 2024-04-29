@@ -22,11 +22,14 @@ cloudinary.config({
   api_key: process.env.CLOUD_API_KEY,
   api_secret: process.env.CLOUD_API_SECRET,
 });
-router.get('/',isLoggedIn, async function(req, res, next) {
+
+router.get('/', async function(req, res, next) {
+  res.render('index');
+});
+router.get('/UserHome',isLoggedIn, async function(req, res, next) {
   const user = req.user;
   const loggedInUser = await userModel.findOne({ _id: user._id });
-
-  res.render('index', { loggedInUser});
+  res.render('userhome',{loggedInUser});
 });
 router.get("/register", async function (req, res, next) {
   res.render("register", { error: req.flash("error") });
@@ -385,7 +388,7 @@ router.post("/register", async function (req, res, next) {
     const data = await userModel.create({ username,name, email, password });
     const token = await data.generateToken();
     res.cookie("token", token, { httpOnly: true }); // Set token as a cookie
-    res.redirect("/"); // Redirect to / page
+    res.redirect("/UserHome"); // Redirect to / page
   } catch (error) {
     console.error(error);
     res
@@ -415,7 +418,7 @@ router.post('/login', async function (req, res, next) {
       if (userExist.role === 'admin') {
         res.redirect('/home');
       } else {
-        res.redirect('/');
+        res.redirect('/UserHome');
       }
 
     } else {
