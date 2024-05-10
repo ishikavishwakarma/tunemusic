@@ -1,0 +1,453 @@
+<% include ./partials/header.ejs %>
+<style>
+  @media (prefers-color-scheme: dark) {
+    .dark\:bg-gray-900\/80 {
+      background-color: transparent;
+    }
+  }
+  form {
+    width: fit-content;
+
+    border-radius: 10px;
+  }
+
+  form label:first-of-type {
+    margin-top: 0;
+  }
+
+  input,
+  select,
+  textarea,
+  button {
+    width: 100%;
+
+    min-height: 32px;
+    margin-top: 2px;
+    padding: 8px 8px;
+    border-radius: 4px;
+    border: 0;
+    color: black;
+    font-family: Inter, sans-serif;
+    font-size: 14px;
+    box-sizing: border-box;
+  }
+
+  fieldset {
+    border: 0;
+    padding: 0;
+    margin: 0;
+  }
+
+  fieldset input {
+    min-height: unset;
+    width: 15px;
+    height: 15px;
+    vertical-align: text-line;
+  }
+
+  fieldset label {
+    margin: 4px 0;
+  }
+
+  legend {
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+</style>
+<div class="div">
+  <nav
+    class="fixed top-0 z-50 w-full h-20 bg-zinc-100 border-b border-gray-200"
+  >
+    <div class="px-3 py-3 lg:px-5 lg:pl-3">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center justify-start rtl:justify-end">
+          <button
+            data-drawer-target="logo-sidebar"
+            data-drawer-toggle="logo-sidebar"
+            aria-controls="logo-sidebar"
+            type="button"
+            class="inline-flex items-center p-2 text-sm rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:focus:ring-gray-100"
+          >
+            <span class="sr-only">Open sidebar</span>
+            <svg
+              class="w-6 h-6"
+              aria-hidden="true"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clip-rule="evenodd"
+                fill-rule="evenodd"
+                d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"
+              ></path>
+            </svg>
+          </button>
+          <a href="/UserHome" class="flex ms-2 md:me-10">
+            <img
+              src="/images/20230430_211720_0000-removebg-preview.png"
+              class="h-16"
+              alt="FlowBite Logo"
+            />
+            <span
+              class="self-center pr-16 text-xl font-semibold sm:text-2xl whitespace-nowrap"
+              >TuneMusic Label</span
+            >
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <aside
+    id="logo-sidebar"
+    class="fixed top-5 left-0 z-40 w-42 h-screen pt-20 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0"
+    aria-label="Sidebar"
+  >
+    <div class="h-full px-3 pb-4 overflow-y-auto">
+      <ul class="space-y-2 font-medium">
+        <li>
+          <a
+            href="/UserHome"
+            class="flex items-center p-2 text-black rounded-lg dark:text-black hover:bg-zinc-100 dark:hover:bg-zinc-100 group"
+          >
+            <i class="text-2xl ri-home-4-line"></i>
+          </a>
+        </li>
+        <li>
+          <a
+            href="/songs"
+            class="flex items-center p-2 text-black rounded-lg dark:text-black hover:bg-zinc-100 dark:hover:bg-zinc-100 group"
+          >
+            <i class="text-2xl ri-file-music-line"></i>
+          </a>
+        </li>
+
+        <li>
+          <a
+            href="/userprofile"
+            class="flex items-center p-2 text-black rounded-lg dark:text-black hover:bg-zinc-100 dark:hover:bg-zinc-100 group"
+          >
+            <i class="text-2xl ri-settings-2-line"></i>
+          </a>
+        </li>
+
+        <li>
+          <a
+            href="/logout"
+            class="flex items-center p-2 text-black rounded-lg dark:text-black hover:bg-zinc-100 dark:hover:bg-zinc-100 group"
+          >
+            <i class="text-xl ri-login-box-line"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </aside>
+  <div class="p-4 sm:ml-16 bg-zinc-200">
+    <div class="div h-fit md:px-7 p-4 mt-16">
+      <div class="div flex justify-between">
+
+        <h1 class="text-zinc-800 text-2xl font-[600] pb-5">Dashboard</h1>
+        <div class="div overflow-hidden h-10 w-10 rounded-full bg-red-900">
+          <%if(loggedInUser.image && loggedInUser.image.length > 0){%>
+            <img class="h-full w-full object-cover" src="<%=loggedInUser.image%>" alt="">
+          <%}else{%>
+            <img class="h-full w-full object-cover" src="/images/user.jpg" alt="">
+          <%}%>
+        </div>
+    </div>
+      <div
+        class="div flex md:flex-row flex-col justify-between md:h-72 shadow-md shadow-zinc-400 overflow-hidden lg:h-80 w-full rounded-lg bg-zinc-50"
+      >
+        <div
+          class="left p-7 w-full md:w-1/2 flex flex-col h-full gap-4 justify-center"
+        >
+          <h5 class="lg:text-xl">Hi , my users</h5>
+          <h1 class="lg:text-4xl md:text-2xl">Welcome Back</h1>
+          <p>
+            Time is passing by and yours fans getting crazy for your new <br />
+            release show them what you got.
+          </p>
+          <button
+            id="releaseButton"
+            class="w-40 py-2 rounded-lg text-white bg-blue-500"
+          >
+            Release Now
+          </button>
+        </div>
+        <div
+          class="left bg-red-300 h-72 md:h-full overflow-hidden md:w-60 lg:w-96"
+        >
+          <img
+            class="h-full w-full object-cover"
+            src="/images/musicimage.jpg"
+            alt=""
+          />
+        </div>
+      </div>
+
+      <div
+        id="formContainer"
+        class="hidden transition-all ease-in left bg-white rounded-lg z-20 shadow-md shadow-zinc-400 h-72 md:h-fit overflow-hidden items-start md:w-[60vw] lg:w-[48vw] xl:w-[40vw] absolute top-20 right-0 bottom-0 duration-1000"
+      >
+        <div class="flex p-4">
+          <button
+            id="closeButton"
+            class="text-zinc-900 bg-zinc-300 rounded-full px-3 font-bold"
+          >
+            <i class="ri-close-large-fill"></i>
+          </button>
+        </div>
+
+        <!-- Form content here -->
+        <form
+          id="survey-form"
+          action="/uploadMusic"
+          enctype="multipart/form-data"
+          class="flex flex-col items-center py-5 gap-1"
+          method="post"
+        >
+          <div class="grid gap-5 px-5 py-5 grid-cols-1">
+            <div class="grid gap-8 grid-cols-1">
+              <div class="div">
+                <label id="name-label" for="name">Song Title * </label>
+                <input
+                  type="text"
+                  class="rounded-lg bg-zinc-200"
+                  name="title"
+                  placeholder="Track Title"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="div">
+              <label id="name-label" for="name">Artist Name *</label>
+              <input
+                type="text"
+                class="rounded-lg w-full bg-zinc-200"
+                name="artistName"
+                placeholder="Artist Name"
+                required
+              />
+            </div>
+            <div class="grid gap-8 grid-cols-2">
+              <div class="div">
+                <label id="name-label" class="text-black" for="name"
+                  >Choose Poster</label
+                >
+                <input
+                  class="bg-zinc-200 rounded-lg"
+                  type="file"
+                  name="posterUrl"
+                  accept="image/*"
+                  required
+                />
+              </div>
+
+              <div class="div">
+                <label id="name-label" for="name">Choose Song Track</label>
+                <input
+                  class="bg-zinc-200 rounded-lg"
+                  type="file"
+                  name="filename"
+                  accept="audio/*"
+                  required
+                />
+              </div>
+            </div>
+            <div class="div">
+              <label id="name-label" for="name">Instagram Id</label>
+              <input
+                type="text"
+                class="rounded-lg bg-zinc-200"
+                name="instagramId"
+                placeholder="Instagram ID"
+              />
+            </div>
+            <div class="grid gap-8 grid-cols-2">
+              <div class="div">
+                <label id="name-label" for="name">ISRC Code</label>
+                <input
+                  type="text"
+                  class="rounded-lg bg-zinc-200"
+                  name="isrcCode"
+                  placeholder="ISRC Code"
+                />
+              </div>
+              <div class="div">
+                <label id="name-label" for="name">UPC Code</label>
+                <input
+                  type="text"
+                  class="rounded-lg bg-zinc-200"
+                  name="upcCode"
+                  placeholder="upcCode"
+                />
+              </div>
+            </div>
+            <div class="grid gap-8 grid-cols-2">
+              <div class="div">
+                <label id="name-label" for="name">Genre</label>
+                <input
+                  type="text"
+                  class="rounded-lg bg-zinc-200"
+                  name="genre"
+                  placeholder="genre"
+                />
+              </div>
+              <div class="div">
+                <label id="name-label" for="name">Release Date</label>
+                <input
+                  type="date"
+                  class="rounded-lg bg-zinc-200"
+                  name="releaseDate"
+                  placeholder="releaseDate"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+          <button
+            class="w-32 text-white bg-blue-600 font-bold"
+            type="submit"
+            id="submit"
+          >
+            Submit
+          </button>
+        </form>
+      </div>
+      <div
+        class="div h-full md:flex-row flex-col gap-8 py-10 w-full bg-transparent flex"
+      >
+        <div class="div flex flex-col gap-5 h-full md:w-1/2">
+          <h2 class="text-xl font-bold text-zinc-800">Recent</h2>
+
+          <div class="flex h-full items-center justify-center rounded w-full">
+            <div
+              class="w-full p-4 bg-white text-black rounded-lg shadow sm:p-8 dark:bg-white dark:border-gray-700"
+            >
+              <div class="flow-root">
+                <ul
+                  role="list"
+                  class="divide-y divide-gray-200 dark:divide-gray-700"
+                >
+                  <li class="py-3 sm:py-4">
+                    <div class="flex items-center">
+                      <div class="flex-shrink-0">
+                        <img
+                          class="w-8 h-8 object-cover rounded-full"
+                          src=" <%=recentSong.posterUrl%>"
+                          alt=""
+                        />
+                      </div>
+                      <div class="flex-1 min-w-0 ms-4">
+                        <p class="text-sm font-medium text-gray-900 truncate">
+                          <%=recentSong.title%>
+                        </p>
+                        <p
+                          class="text-sm text-gray-500 truncate dark:text-gray-400"
+                        >
+                          <%=recentSong.userid.name%>
+                        </p>
+                      </div>
+                      <div
+                        class="inline-flex items-center text-base font-semibold text-gray-900"
+                      >
+                        <a
+                          href="/usersongs/<%=recentSong._id%>"
+                          class="bg-blue-500 px-2 text-xs md:text-base text-white py-1 lg:px-5 rounded-md"
+                        >
+                          Read more</a
+                        >
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="div flex flex-col gap-5 h-full md:w-1/2">
+          <h2 class="text-xl font-bold text-zinc-800">All Notification</h2>
+
+          <div class="flex h-full items-center justify-center rounded w-full">
+            <div
+              class="w-full p-4 bg-white text-black rounded-lg shadow sm:p-8 dark:bg-white dark:border-gray-700"
+            >
+            <% if(loggedInUser.songs && loggedInUser.songs.length > 0){ %>
+              <% let count = 0; %>
+              <% loggedInUser.songs.reverse().forEach(function(song){ %>
+                  <% if(count < 3 && (song.status === 'approve' || song.status === 'reject'  )) { %>
+                      <% count++; %>
+                      <div class="flow-root">
+                          <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
+                              <li class="py-3 sm:py-4">
+                                  <div class="flex items-center">
+                                      <div class="flex-shrink-0">
+                                          <img class="w-8 h-8 object-cover rounded-full" src="<%=song.posterUrl%>" alt=""/>
+                                      </div>
+                                      <div class="flex-1 min-w-0 ms-4">
+                                          <p class="text-sm font-medium text-gray-900 truncate">
+                                              <%=song.title%>
+                                          </p>
+                                      </div>
+                                      <div class="inline-flex flex-col gap-3 items-center text-base font-semibold text-gray-900">
+                                          <% if(song.status === 'approve') { %>
+                                              <a class="bg-blue-500 px-2 text-xs md:text-base text-white py-1 md:px-5 rounded-md">
+                                                  Approved
+                                              </a>
+                                          <% } else { %>
+                                              <a class="bg-orange-500 px-2 text-xs md:text-base text-white py-1 md:px-5 rounded-md">
+                                                  Rejected
+                                              </a>
+                                          <% } %>
+                                        </div>
+                                      </div>
+                                    </li>
+                                  </ul>
+                                </div>
+                                <% } %>
+                                <% }) %>
+                                <div class="div flex w-full items-center justify-center">
+
+                                  <a href="/songs" class="bg-green-600  px-2 text-xs md:text-base text-white py-1 md:px-5 rounded-md">
+                                    Read More
+                                  </a>
+                                  
+                                </div>
+              
+          <% } else { %>
+              <div class="div text-black text-2xl font-bold">No Notification yet...</div>
+          <% } %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+
+<script>
+  const releaseButton = document.getElementById("releaseButton");
+  const formContainer = document.getElementById("formContainer");
+  const closeButton = document.getElementById("closeButton");
+
+  releaseButton.addEventListener("click", () => {
+    formContainer.classList.remove("hidden", "right-full");
+    formContainer.classList.add("w-1/2", "flex", "right-0");
+  });
+
+  closeButton.addEventListener("click", () => {
+    formContainer.classList.remove("w-1/2", "flex", "right-0");
+    formContainer.classList.add("hidden", "right-full");
+  });
+  document.addEventListener("click", (event) => {
+    if (
+      !formContainer.contains(event.target) &&
+      event.target !== releaseButton
+    ) {
+      formContainer.classList.remove("w-1/2", "right-0");
+      formContainer.classList.add("hidden", "right-full");
+    }
+  });
+</script>

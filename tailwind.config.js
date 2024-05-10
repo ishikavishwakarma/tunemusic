@@ -6,8 +6,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily:{
-        'montserrat':['montserrat'],
-        'gilroy':['gilroy']
+        'montserrat':['Montserrat'],
+        'nunito':['Nunito']
       }
     },
   },

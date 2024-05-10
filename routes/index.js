@@ -20,8 +20,9 @@ router.get('/', async function(req, res, next) {
 });
 router.get('/UserHome',isLoggedIn, async function(req, res, next) {
   const user = req.user;
-  const loggedInUser = await userModel.findOne({ _id: user._id });
-  res.render('userhome',{loggedInUser});
+  const loggedInUser = await userModel.findOne({ _id: user._id }).populate('songs');
+  const recentSong = await songModel.findOne({ status: 'approve' }).sort({ createdAt: -1 }).limit(1).populate("userid");
+  res.render('userAdmin',{loggedInUser, recentSong});
 });
 router.get("/register", async function (req, res, next) {
   res.render("register", { error: req.flash("error") });
@@ -53,6 +54,22 @@ router.get('/requestsongs',isAdmin, async(req, res) => {
     const admin = await userModel.findOne({ _id: adminuser._id });
     const users = await userModel.find({ role: { $ne: "admin" } });
     res.render('adminSongs',{admin,songs,users})
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+router.get('/packages', async(req, res) => {
+  try {
+   res.render('packages')
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+router.get('/terms', async(req, res) => {
+  try {
+   res.render('terms')
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Internal Server Error' });
@@ -135,6 +152,7 @@ router.get('/adminsongs',isAdmin, async(req, res) => {
     res.status(500).json({ message: 'Internal Server Error' });
   }
 });
+
 router.get('/adminsongs/:id',isAdmin, async(req, res) => {
   const adminuser = req.user;
   const admin = await userModel.findOne({ _id: adminuser._id });
@@ -237,7 +255,7 @@ router.post('/uploadMusic',isLoggedIn, async (req, res) => {
     await newMedia.save();
     await loggedInUser.songs.push(newMedia._id)
     await loggedInUser.save()
-    res.redirect('/');
+    res.redirect('/songs');
   } catch (err) {
     console.error(err);
     res.status(500).send('Internal Server Error');

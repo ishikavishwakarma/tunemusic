@@ -7,7 +7,7 @@
     }
 
     body {
-      background: #F4F4F5;
+    
       margin: 0;
       padding: 0;
     }
@@ -54,7 +54,7 @@
         font-weight: 600;
     }
    .top{
-    clip-path: polygon(0 0, 100% 0, 100% 68%, 0 44%);
+   background: #fff;
    }
    .card {
     position: relative;
@@ -69,6 +69,7 @@
     border-radius: 8px;
     cursor: pointer;
     color: black;
+    z-index: 2;
   }
   
   .card::before {
@@ -81,7 +82,7 @@
     height: 394px;
     border-radius: 10px;
     background: linear-gradient(-45deg, #e81cff 0%, #40c9ff 100% );
-    z-index: -10;
+    z-index: -1;
     pointer-events: none;
     transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   }
@@ -118,127 +119,29 @@
   .card:hover::before {
     transform: rotate(-90deg) scaleX(1.34) scaleY(0.77);
   }
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+ 
 
-  *,
-  *::before,
-  *::after {
-    box-sizing: border-box;
-  }
-
-  
-  .footer {
-    background-color: #dadada;
-    padding: 80px 0;
-  }
-  
-  .container {
-    max-width: 1170px;
-    margin: auto;
-  }
-  
-  .row {
-    display: flex;
-    flex-wrap: wrap;
-  }
-  
-  ul {
-    list-style: none;
-  }
-  
-  .footer-col {
-    width: 25%;
-    padding: 0 15px;
-  }
-  
-  .footer-col h4 {
-    font-size: 18px;
-    color: #000;
-    text-transform: capitalize;
-    margin-bottom: 35px;
-    font-weight: 500;
-    position: relative;
-  }
-  
-  .footer-col h4::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: -10px;
-    background-color: #E91E63;
-    width: 50px;
-    height: 2px;
-  }
-  
-  .footer-col ul li:not(:last-child) {
-    margin-bottom: 10px;
-  }
-  
-  .footer-col ul li a {
-    color: #000;
-    display: block;
-    font-size: 1rem;
-    font-weight: 800;
-    text-transform: capitalize;
-    text-decoration: none;
-    transition: all 0.3s ease;
-  }
-  
-  .footer-col ul li a:hover {
-    color: #000;
-    padding-left: 7px;
-  }
-  
-  .footer-col .social-links a {
-    color: #fff;
-    background-color: #000;
-    display: inline-block;
-    height: 40px;
-    width: 40px;
-    border-radius: 50%;
-    text-align: center;
-    margin: 0 10px 10px 0;
-    line-height: 40px;
-    transition: all 0.5s ease;
-  }
-  
-  .footer-col .social-links a:hover {
-    color: #fff;
-    background-color: rgba(0, 0, 0, 0.304)
-  }
-  
-  @media(max-width: 767px) {
-    .footer-col {
-      width: 50%;
-      margin-bottom: 30px;
-    }
-  }
-  
-  @media(max-width: 574px) {
-    .footer-col {
-      width: 100%;
-    }
-  }
+ 
   </style>
 <div>
-    <nav class="flex  h-fit flex-col">
+    <nav class="flex  h-fit font-nunito flex-col">
        
         <div class="div flex  bg-zinc-100 text-[#000] items-center justify-between py-5 px-5 lg:px-14 ">
             <div class="left ">
-                <a class="text-bold inline-flex text-xl font-bold items-center" href="/"> <img class="h-16 w-24" src="/images/20230430_211720_0000-removebg-preview.png" alt=""> Tune <span>Music</span></a>
+                <a class="text-bold inline-flex text-xl font-bold items-center" href="/"> 
+                  <div class="div h-16 w-16 ">
+                    <img class="h-full object-cover  w-full" src="/images/20230430_211720_0000-removebg-preview.png" alt=""> 
+                  </div>
+                  
+                  TuneMusic Label</a>
             </div>
             <div class="right">
-                <ul class="flex lg:text-lg text-lg md:text-sm md:gap-5  font-['gilroy'] gap-8 items-center  ">
+                <ul class="flex lg:text-lg text-lg md:text-sm md:gap-5  font-nunito gap-8 items-center  ">
                     <li class=" font-bold"><a href="/"> Home</a></li>
-                    <li class=" font-bold"><a href="/userprofile">Dashboard</a></li>
-                    <li class=" font-bold"><a href="/uploadMusic">Upload Songs</a></li>
-                    <li class=" font-bold"><a href="/songs">Your Songs</a></li>
                    
-                   
-                 
-                     
-                 
-                      <li class="font-bold"><a href="/login">Login</a></li>
+                    <li class=" font-bold"><a href="/terms">Terms & policy</a></li> 
+                    <li class=" font-bold"><a href="/packages">Packages</a></li> 
+                    <li class="font-bold"><a href="/login">Login</a></li>
                 
                    
                     <h4><i id="menu-btn" class="  ri-menu-line"></i></h4>
@@ -248,40 +151,43 @@
     </nav>
     <div id="slidebar" class=" text-black bg-zinc-100">
         <div class="left">
-            <a class="text-bold inline-flex text-2xl items-center justify-center" href="/"> <img class="h-16 w-24" src="/images/20230430_211720_0000-removebg-preview.png" alt=""> Tune <span>Music</span></a>
+            <a class="text-bold inline-flex text-2xl items-center justify-center" href="/">
+              <div class="div h-16 w-16 ">
+                <img class="h-full object-cover  w-full" src="/images/20230430_211720_0000-removebg-preview.png" alt=""> 
+              </div>
+               TuneMusic Label
+              </a>
         </div>
         <a href="/"> <i class="ri-home-5-fill pr-2"></i> Home</a>
-        <a href="/userprofile"> <i class="ri-home-5-fill pr-2"></i> Dashboard</a>
-        <a href="/uploadMusic"><i class="ri-phone-camera-fill pr-2"></i>Upload Songs</a>
-        <a href="/songs"> <i class="ri-gallery-line pr-2"></i>Your Songs</a>
-  
+        <a href="/terms"> <i class="ri-gallery-line pr-2"></i>Terms & policy</a>
+        <a href="/packages"><i class="ri-phone-camera-fill pr-2"></i>Packages</a>
         <a href="/login"><i class="ri-login-box-line pr-2"></i>Login</a>
     
     </div>
     <div class="swiper mySwiper">
         <div class="swiper-wrapper">
           <div class="swiper-slide  ">
-            <img src="https://images.unsplash.com/photo-1474692295473-66ba4d54e0d3?q=80&w=1984&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
+            <img src="/images/card4.avif" alt="">
             <div class="div head text-white  absolute">
                 <h1>Sell Your Music WorldWide</h1>
                 <p>Get your music on Spotify, Apple Music, Wynk, Hungama, YouTube, JioSaavn, Instagram and more. <br>
-                    Keep 100% ownership of your music and stay in control of your career. Unlimited Releases starting at ₹1299*/year.</p>
+                    Keep 100% ownership of your music and stay in control of your career. Unlimited Releases starting at ₹1999*/month.</p>
             </div>
           </div>
           <div class="swiper-slide  ">
-            <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
+            <img src="/images/slide2.avif" alt="">
             <div class="div head text-white  absolute">
                 <h1>Sell Your Music WorldWide</h1>
                 <p>Get your music on Spotify, Apple Music, Wynk, Hungama, YouTube, JioSaavn, Instagram and more. <br>
-                    Keep 100% ownership of your music and stay in control of your career. Unlimited Releases starting at ₹1299*/year.</p>
+                    Keep 100% ownership of your music and stay in control of your career. Unlimited Releases starting at ₹1999*/month.</p>
             </div>
           </div>
           <div class="swiper-slide  ">
-            <img src="https://images.unsplash.com/photo-1470229538611-16ba8c7ffbd7?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
+            <img src="/images/slide3.avif" alt="">
             <div class="div head text-white  absolute">
                 <h1>Sell Your Music WorldWide</h1>
                 <p>Get your music on Spotify, Apple Music, Wynk, Hungama, YouTube, JioSaavn, Instagram and more. <br>
-                    Keep 100% ownership of your music and stay in control of your career. Unlimited Releases starting at ₹1299*/year.</p>
+                    Keep 100% ownership of your music and stay in control of your career. Unlimited Releases starting at ₹1999*/month.</p>
             </div>
           </div>
          
@@ -291,19 +197,19 @@
       <div class="swiper-pagination"></div>
       </div>
       <div class="div w-full h-fit ">
-      <div class="div bg-zinc-100 flex flex-col gap-10 text-black h-[200vw] md:h-[150vh] lg:h-[100vh] xl:h-[90vh] px-6 lg:px-20 xl:py-5 w-full top">
+      <div class="div bg-zinc-100 flex flex-col gap-10 text-black h-full md:h-full lg:h-full xl:h-[50vh] px-6 lg:px-20 xl:py-5 w-full top">
         <div class="div flex lg:flex-row items-center lg:items-start lg:pt-10 xl:pt-0 pt-5 xl:items-center flex-col lg:gap-10">
           <div class="div items-start flex gap-4">
-  <div class="div xl:h-60 lg:h-48 lg:w-60 xl:w-80 overflow-hidden rounded bg-slate-600">
-    <img class="h-full w-full object-cover" src="https://images.unsplash.com/photo-1474692295473-66ba4d54e0d3?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTQwfHxhcnRpc3QlMjBhbmQlMjBtdXNpYyUyMGltYWdlc3xlbnwwfHwwfHx8MA%3D%3D" alt="">
+  <div class="div xl:h-60 lg:h-48 lg:w-60 xl:w-80 overflow-hidden rounded ">
+    <img class="h-full w-full object-cover " src="/images/card4.avif" alt="">
   </div>
-  <div class="div xl:h-60 lg:h-48 lg:w-60 overflow-hidden xl:w-80 rounded bg-slate-600">
-    <img class="h-full w-full object-cover" src="https://images.unsplash.com/photo-1487702232819-65ae859daf8a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTM5fHxhcnRpc3QlMjBhbmQlMjBtdXNpYyUyMGltYWdlc3xlbnwwfHwwfHx8MA%3D%3D" alt="">
+  <div class="div xl:h-60 lg:h-48 lg:w-60 overflow-hidden xl:w-80 rounded ">
+    <img class=" h-full w-full object-cover " src="/images/card1.avif" alt="">
   </div>
           </div>
           <div class="div flex flex-col gap-5 py-5">
-            <h1 class="xl:text-3xl text-xl font-[montserrat]">Unlimited Distribution Starting at ₹1299*/year</h1>
-            <p class="text-xs xl:text-lg">Get your music on Spotify, Apple Music, Wynk, Hungama, YouTube, JioSaavn, Instagram and more. Keep 100% ownership of your music and stay in control of your career.</p>
+            <h1 class="xl:text-3xl md:text-2xl text-xl font-montserrat">Unlimited Distribution Starting at ₹1299*/year</h1>
+            <p class="text-xs md:text-lg xl:text-lg">Get your music on Spotify, Apple Music, Wynk, Hungama, YouTube, JioSaavn, Instagram and more. Keep 100% ownership of your music and stay in control of your career.</p>
            <a href="/uploadMusic">
 
              <button class="learn-more">
@@ -316,25 +222,11 @@
           </div>
         </div>
       </div>
-      <h1 class="text-black -mt-60 lg:-mt-60 text-center text-2xl font-[700]">MORE RELEASES</h1>
-      <div class="div mt-24  px-10 pb-10 items-center justify-center flex-wrap gap-14 lg:gap-8  flex md:justify-between   xl:px-32">
+      <h1 class="text-black pt-10   text-center text-2xl font-[700]">MORE RELEASES</h1>
+      <div class="div mt-24  px-10 pb-10 place-content-center  md:gap-10  gap-14 lg:gap-10 md:grid-cols-2 place-items-center grid-cols-1  grid lg:grid-cols-3    xl:px-32">
         <div class="card">
-          <div class="div lg:h-60 h-96  overflow-hidden lg:w-[17.3vw] rounded ">
-            <img class="h-full w-full object-cover" src="https://images.unsplash.com/photo-1487702232819-65ae859daf8a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTM5fHxhcnRpc3QlMjBhbmQlMjBtdXNpYyUyMGltYWdlc3xlbnwwfHwwfHx8MA%3D%3D" alt="">
-          </div>
-          <p class="heading">
-            Popular this month
-          </p>
-          <p>
-            Powered By
-          </p>
-          <p>TuneMusic
-        </p>
-      </div>
-        
-        <div class="card">
-          <div class="div md:h-60 h-96  overflow-hidden md:w-[17.3vw] rounded ">
-            <img class="h-full w-full object-cover" src="https://plus.unsplash.com/premium_photo-1661713868730-4e03db53b02b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fGFydGlzdCUyMGFuZCUyMG11c2ljJTIwaW1hZ2VzfGVufDB8fDB8fHww" alt="">
+          <div class="div xl:h-60 h-96  overflow-hidden xl:w-[17.3vw] rounded ">
+            <img class="h-full w-full object-cover" src="/images/card1.avif" alt="">
           </div>
           <p class="heading">
             Popular this month
@@ -346,8 +238,8 @@
         </p>
       </div>
         <div class="card">
-          <div class="div lg:h-60 h-96  overflow-hidden lg:w-[17.3vw] rounded ">
-            <img class="h-full w-full object-cover" src="https://images.unsplash.com/photo-1471478331149-c72f17e33c73?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjJ8fGFydGlzdCUyMGFuZCUyMG11c2ljJTIwaW1hZ2VzfGVufDB8fDB8fHww" alt="">
+          <div class="div xl:h-60 h-96  overflow-hidden xl:w-[17.3vw] rounded ">
+            <img class="h-full w-full object-cover" src="/images/card2.avif" alt="">
           </div>
           <p class="heading">
             Popular this month
@@ -358,14 +250,26 @@
           <p>TuneMusic
         </p>
       </div>
-       
+        <div class="card">
+          <div class="div xl:h-60 h-96  overflow-hidden xl:w-[17.3vw] rounded ">
+            <img class="h-full w-full object-cover" src="/images/card3.avif" alt="">
+          </div>
+          <p class="heading">
+            Popular this month
+          </p>
+          <p>
+            Powered By
+          </p>
+          <p>TuneMusic
+        </p>
+      </div> 
       </div>
-      <div class="bottom bg-zinc-100 lg:pl-48 py-5 lg:px-20 h-[80vh] flex lg:flex-row flex-col gap-10 items-center w-full">
-        <div class="div h-[25vw] bg-zinc-500 lg:block hidden w-[25vw] ">
+      <div class="bottom bg-zinc-100 xl:pl-48 lg:pl-20 py-5 md:px-10 xl:px-20 h-[80vh] flex md:flex-row flex-col gap-8 items-center w-full">
+        <div class="div h-[25vw] md:h-96 xl:h-[25vw] xl:w-[25vw]  md:w-[80vw] bg-zinc-500 md:block hidden w-[25vw] ">
           <img class="h-full w-full object-cover " src="https://www.tunecore.in/wp-content/uploads/sites/15/2022/03/Adela.png" alt="">
         </div>
-        <div class="div h-96 font-['montserrat'] text-black flex flex-col gap-5 px-5 lg:pr-32">
-          <h1 class="lg:text-3xl font-bold">Why Choose <span class="span"> TUNEMUSIC</span> </h1>
+        <div class="div h-96 font-montserrat text-black flex flex-col gap-5 px-5 lg:pr-10 xl:pr-32">
+          <h1 class="lg:text-3xl font-bold">Why Choose <span class="span"> TUNEMUSIC LABEL</span> </h1>
           <h4 class="text-xl font-[700]">Unlimited Worldwide Music Distribution</h4>
           <p class="lg:text-lg font-light">Get your music playing in over 150 digital stores and streaming services across 200+ countries worldwide. Starting at ₹1299*/year.</p>
           <h4 class="text-xl font-[700]">Unlimited Releases to Social Platforms</h4>
@@ -378,54 +282,53 @@
           </button> </a>
         </div>
         </div>
-        <div class="div bg-zinc-100  h-96 flex flex-col items-center justify-center w-full">
-<h1 class="text-black font-[700] lg:text-5xl">How to Sell Your <span class="span">Music Online</span></h1>
+        <div class="div bg-zinc-100 pb-10 pt-7 h-96 flex flex-col items-center justify-center w-full">
+<h1 class="text-black font-[700] text-3xl text-center pt-5 lg:text-5xl">How to Sell Your <span class="span">Music Online</span></h1>
 <p class="text-black px-5 lg:px-28 text-center lg:font-[600] lg:text-lg pt-5">Before TuneMusic, artists needed a label to get their music sold online. In 2006, we disrupted the industry by partnering directly with Digital Stores to allow any musician to sell their songs worldwide. Today, TuneMusic is the world's leading digital music aggregator. Choose an unlimited distribution plan, upload your music, and we'll do the rest. Your music will hit top digital stores, like Spotify and Apple Music, in no time.</p>
         </div>
       </div>
 
-      <footer class="footer">
+      <footer class="footer font-nunito pl-10">
         <div class="container row">
           <div class="footer-col">
             <h4>Learn About TuneMusic</h4>
             <ul>
-              <li><a href="#">What Is TuneMusic? </a></li>
-              <li><a href="#">our services</a></li>
-              <li><a href="#">Terms & Conditions</a></li>
-              <li><a href="#">Careers</a></li>
+              <li><a href="/">What Is TuneMusic? </a></li>
+              <li><a href="/packages">Our Subscriptions</a></li>
+              <li><a href="/terms">Terms & Conditions</a></li>
+              <li><a href="/UserHome">Careers</a></li>
             </ul>
           </div>
           <div class="footer-col">
             <h4>Make Money With TuneMusic</h4>
             <ul>
-              <li><a href="#">Create Your Account</a></li>
-              <li><a href="#">Sell Your Music</a></li>
-              <li><a href="#">Artist Services</a></li>
+              <li><a href="/register">Create Your Account</a></li>
+              <li><a href="/login">Sell Your Music</a></li>
+              <li><a href="/UserHome">Artist Services</a></li>
               
             </ul>
           </div>
           <div class="footer-col">
             <h4>Account Services</h4>
             <ul>
-              <li><a href="#">Login</a></li>
+              <li><a href="/login">Login</a></li>
               <li><a href="#">Contact</a></li>
-              <li><a href="#">help</a></li>
+              <li><a href="/">About</a></li>
              
             </ul>
           </div>
           <div class="footer-col">
             <h4>follow us</h4>
             <div class="social-links">
-              <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-              <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
-              <a href="#"><i class="fa-brands fa-instagram"></i></a>
-              <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+              <a href="#"><i class="fa-brands ri-facebook-fill"></i></a>
+              <a href="#"><i class="fa-brands ri-twitter-x-line"></i></a>
+              <a href="#"><i class="fa-brands ri-instagram-fill"></i></a>
+              <a href="#"><i class="fa-brands ri-linkedin-fill"></i></a>
             </div>
           </div>
         </div>
       </footer>
 </div>
-<script src="https://kit.fontawesome.com/3b161c540c.js" crossorigin="anonymous"></script>
 <script src="/javascripts/sidebar.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>

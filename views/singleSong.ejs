@@ -97,14 +97,14 @@
          </div>
       </aside>
       <div class="p-4 sm:ml-64">
-        <div class="div p-4 mt-16">
+        <div class="div  mt-16">
             <div
   class="flex flex-col h-[80vh] w-full rounded-lg  text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-black  md:flex-row">
   <img
     class=" rounded-t-lg object-cover md:h-auto md:w-[30vw] md:!rounded-none md:!rounded-s-lg"
     src="<%=song.posterUrl%>"
     alt="" />
-  <div class="flex flex-col gap-3 justify-start p-6">
+  <div class="flex flex-col gap-3 justify-start p-1">
     <h5 class="mb-2 text-xl uppercase font-medium"><%=song.title%></h5>
     <p class="mb-4 text-base">
         Underneath the stars, we found solace in whispered secrets, now buried in the sands of time.
@@ -119,17 +119,29 @@
        The song status is <span class="uppercase text-lg font-semibold"><%=song.status%></span>
     </p>
    <div class="div flex gap-5">
-    <a href="#" class="uppercase items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-400 rounded-lg hover:bg-blue-500 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-400 dark:hover:bg-blue-500 dark:focus:ring-blue-800"
-    onclick="updateStatus('<%= song._id %>')">
-   Approve
- </a>
-    <a href="#" class="uppercase items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-400 rounded-lg hover:bg-blue-500 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-400 dark:hover:bg-blue-500 dark:focus:ring-blue-800"
-    onclick="updaterejectstatus('<%= song._id %>')">
- Reject
- </a>
- <a href="/deletesong/<%= song._id %>" class=" uppercase items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-400 rounded-lg hover:bg-blue-500 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-400 dark:hover:bg-blue-500 dark:focus:ring-blue-800">
-   Delete    
+<%if(song.status === 'approve' ){%>
+  <a href="#" class="uppercase items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-400 rounded-lg hover:bg-blue-500 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-400 dark:hover:bg-blue-500 dark:focus:ring-blue-800"
+  onclick="updaterejectstatus('<%= song._id %>')">
+Reject
 </a>
+<a href="/deletesong/<%= song._id %>" class=" uppercase items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-400 rounded-lg hover:bg-blue-500 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-400 dark:hover:bg-blue-500 dark:focus:ring-blue-800">
+ Delete    
+</a>
+<%}else{%>
+  <a href="#" class="uppercase items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-400 rounded-lg hover:bg-blue-500 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-400 dark:hover:bg-blue-500 dark:focus:ring-blue-800"
+  onclick="updateStatus('<%= song._id %>')">
+ Approve
+</a>
+<a href="#" class="uppercase items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-400 rounded-lg hover:bg-blue-500 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-400 dark:hover:bg-blue-500 dark:focus:ring-blue-800"
+onclick="updaterejectstatus('<%= song._id %>')">
+Reject
+</a>
+<a href="/deletesong/<%= song._id %>" class=" uppercase items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-400 rounded-lg hover:bg-blue-500 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-400 dark:hover:bg-blue-500 dark:focus:ring-blue-800">
+Delete    
+</a>
+<%}%>
+
+ 
     
    </div>
    <audio class="text-black pt-5" controls>

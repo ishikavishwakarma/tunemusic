@@ -1,75 +1,95 @@
 <% include ./partials/header.ejs %>
 <div class="div">
-  <nav class="flex h-fit flex-col">
-    <div
-      class="div flex bg-zinc-100 text-[#000] items-center justify-between py-5 px-5 lg:px-14"
-    >
-      <div class="left">
-        <a
-          class="text-bold inline-flex text-xl font-bold items-center"
-          href="/"
+  <nav
+  class="fixed top-0 z-50 w-full h-20 bg-zinc-100 border-b border-gray-200"
+>
+  <div class="px-3 py-3 lg:px-5 lg:pl-3">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center justify-start ">
+        <button
+          data-drawer-target="logo-sidebar"
+          data-drawer-toggle="logo-sidebar"
+          aria-controls="logo-sidebar"
+          type="button"
+          class="inline-flex items-center p-2 text-sm rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:focus:ring-gray-100"
         >
+          <span class="sr-only">Open sidebar</span>
+          <svg
+            class="w-6 h-6"
+            aria-hidden="true"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              clip-rule="evenodd"
+              fill-rule="evenodd"
+              d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"
+            ></path>
+          </svg>
+        </button>
+        <a href="/UserHome" class="flex ms-2 md:me-1">
           <img
-            class="h-16 w-24"
             src="/images/20230430_211720_0000-removebg-preview.png"
-            alt=""
+            class="h-16"
+            alt="FlowBite Logo"
           />
-          Tune <span>Music</span></a
-        >
-      </div>
-      <div class="right">
-        <ul
-          class="flex lg:text-lg text-lg md:text-sm md:gap-5 font-['gilroy'] gap-8 items-center"
-        >
-          <li class="font-bold"><a href="/"> Home</a></li>
-          <li class="font-bold"><a href="/userprofile">Dashboard</a></li>
-          <li class="font-bold"><a href="/uploadMusic">Upload Songs</a></li>
-          <li class="font-bold"><a href="/songs">Your Songs</a></li>
-
-          <% if(loggedInUser) { %>
-          <li class="font-bold"><a href="/logout">Logout</a></li>
-          <% } else { %>
-          <li class="font-bold"><a href="/login">Login</a></li>
-          <% } %>
-
-          <h4><i id="menu-btn" class="ri-menu-line"></i></h4>
-        </ul>
+          <span
+            class="self-center pr-16 text-xl font-semibold sm:text-2xl whitespace-nowrap"
+            >TuneMusic Label</span
+          >
+        </a>
       </div>
     </div>
-  </nav>
-  <div id="slidebar" class="text-black bg-zinc-100">
-    <div class="left">
-      <a
-        class="text-bold inline-flex text-2xl items-center justify-center"
-        href="/"
-      >
-        <img
-          class="h-16 w-24"
-          src="/images/20230430_211720_0000-removebg-preview.png"
-          alt=""
-        />
-        Tune <span>Music</span></a
-      >
-    </div>
-
-    <a href="/"> <i class="ri-home-5-fill pr-2"></i> Home</a>
-    <a href="/userprofile"> <i class="ri-home-5-fill pr-2"></i> Dashboard</a>
-    <a href="/uploadMusic"
-      ><i class="ri-phone-camera-fill pr-2"></i>Upload Songs</a
-    >
-    <a href="/songs"> <i class="ri-gallery-line pr-2"></i>Your Songs</a>
-
-    <% if(loggedInUser) { %>
-    <a href="/logout"><i class="ri-logout-box-line pr-2"></i>Logout</a>
-    <% } else { %>
-    <a href="/login"><i class="ri-login-box-line pr-2"></i>Login</a>
-    <% } %>
   </div>
+</nav>
+<aside
+  id="logo-sidebar"
+  class="fixed top-5 left-0 z-40 w-42 h-screen pt-20 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0"
+  aria-label="Sidebar"
+>
+  <div class="h-full px-3 pb-4 overflow-y-auto">
+    <ul class="space-y-2 font-medium">
+      <li>
+        <a
+          href="/UserHome"
+          class="flex items-center p-2 text-black rounded-lg dark:text-black hover:bg-zinc-100 dark:hover:bg-zinc-100 group"
+        >
+          <i class="text-2xl ri-home-4-line"></i>
+        </a>
+      </li>
+      <li>
+        <a
+          href="/songs"
+          class="flex items-center p-2 text-black rounded-lg dark:text-black hover:bg-zinc-100 dark:hover:bg-zinc-100 group"
+        >
+          <i class="text-2xl ri-file-music-line"></i>
+        </a>
+      </li>
+
+      <li>
+        <a
+          href="/userprofile"
+          class="flex items-center p-2 text-black rounded-lg dark:text-black hover:bg-zinc-100 dark:hover:bg-zinc-100 group"
+        >
+          <i class="text-2xl ri-settings-2-line"></i>
+        </a>
+      </li>
+
+      <li>
+        <a
+          href="/logout"
+          class="flex items-center p-2 text-black rounded-lg dark:text-black hover:bg-zinc-100 dark:hover:bg-zinc-100 group"
+        >
+          <i class="text-xl ri-login-box-line"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+</aside>
   <div
-    class="font-sans antialiased text-gray-900 leading-normal tracking-wider bg-cover"
-    style="
-      background-image: url('https://images.unsplash.com/photo-1471614654469-512ee6a4397a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTA3fHxtdXNpYyUyMGJhY2tncm91bmR8ZW58MHwwfDB8fHww');
-    "
+    class="font-sans antialiased pt-20 text-gray-900 leading-normal tracking-wider bg-cover"
+    
   >
     <div
       class="max-w-4xl flex items-center h-auto lg:h-[85vh] flex-wrap mx-auto my-20 lg:my-0"
@@ -83,7 +103,7 @@
           <!-- Image for mobile view-->
           <div
             class="block lg:hidden rounded-full shadow-xl mx-auto -mt-16 h-48 w-48 bg-cover bg-center"
-            style="background-image: url('/images/background.avif')"
+           
           ></div>
 
           <h1 class="text-3xl font-bold pt-8 lg:pt-0">

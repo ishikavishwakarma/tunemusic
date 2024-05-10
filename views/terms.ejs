@@ -1,0 +1,360 @@
+<% include ./partials/header.ejs %>
+<div class="div">
+  <nav class="flex h-fit flex-col">
+    <div
+      class="div flex bg-zinc-100 text-[#000] items-center justify-between py-5 px-5 lg:px-14"
+    >
+      <div class="left">
+        <a
+          class="text-bold inline-flex text-xl font-bold items-center"
+          href="/"
+        >
+          <div class="div h-16 w-16">
+            <img
+              class="h-full object-cover w-full"
+              src="/images/20230430_211720_0000-removebg-preview.png"
+              alt=""
+            />
+          </div>
+          TuneMusic Label</a
+        >
+      </div>
+      <div class="right">
+        <ul
+          class="flex lg:text-lg text-lg md:text-sm md:gap-5 font-['gilroy'] gap-8 items-center"
+        >
+          <li class="font-bold"><a href="/"> Home</a></li>
+
+          <li class="font-bold"><a href="terms/">Terms & policy</a></li>
+          <li class="font-bold"><a href="/packages">Packages</a></li>
+          <li class="font-bold"><a href="/login">Login</a></li>
+
+          <h4><i id="menu-btn" class="ri-menu-line"></i></h4>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div id="slidebar" class="text-black bg-zinc-100">
+    <div class="left">
+      <a
+        class="text-bold inline-flex text-2xl items-center justify-center"
+        href="/"
+      >
+        <div class="div h-16 w-16">
+          <img
+            class="h-full object-cover w-full"
+            src="/images/20230430_211720_0000-removebg-preview.png"
+            alt=""
+          />
+        </div>
+        TuneMusic Label
+      </a>
+    </div>
+    <a href="/"> <i class="ri-home-5-fill pr-2"></i> Home</a>
+    <a href="/terms"> <i class="ri-gallery-line pr-2"></i>Terms & policy</a>
+    <a href="/packages"><i class="ri-phone-camera-fill pr-2"></i>Packages</a>
+    <a href="/login"><i class="ri-login-box-line pr-2"></i>Login</a>
+  </div>
+  <div class="div h-full py-10 font-nunito w-full">
+    <div class="DIV h-72 md:h-80 flex-col w-full flex items-center justify-center">
+      <h1 class="md:text-8xl sm:text-4xl text-5xl font-montserrat font-semibold">
+        TERMS AND <br />
+        CONDITIONS
+      </h1>
+      <div class="div flex w-full flex-col md:flex-row items-center justify-center pt-4 gap-5">
+        <button
+          id="terms-button"
+          class="py-1 px-3 rounded-full bg-zinc-200 tab-button"
+          onclick="showContent('terms', this)"
+        >
+          TERMS AND CONDITIONS
+        </button>
+        <button
+          id="rules-button"
+          class="py-1 px-3 rounded-full bg-zinc-200 tab-button"
+          onclick="showContent('rules', this)"
+        >
+          RULES AND REGULATION
+        </button>
+        <button
+          id="privacy-button"
+          class="py-1 px-3 rounded-full bg-zinc-200 tab-button"
+          onclick="showContent('privacy', this)"
+        >
+          PRIVACY POLICY
+        </button>
+      </div>
+    </div>
+    <div
+      class="div text-2xl flex flex-col justify-center items-center h-full w-full"
+    >
+      <div class="div w-[80vw] flex flex-col gap-4 h-full">
+        <div class="terms">
+          <div class="div flex flex-col gap-4 py-5">
+            <h1>
+              These Terms and Conditions were last revised and are effective as
+              of May 10th, 2024
+            </h1>
+            <h1 class="font-bold">
+              BELIEVE INTERNATIONAL TERMS AND CONDITIONS
+            </h1>
+            <p>
+              Welcome to TuneMusic label company. Please review the following
+              terms and conditions carefully. These terms, along with our
+              copyright policy, social platforms terms of service (if
+              applicable), and privacy policy (collectively referred to as the
+              "Terms of Service"), govern your use of the TuneMusic.com website
+              (the "Site") and its associated content, information, products,
+              and services (the "Services").
+            </p>
+            <p>
+              This agreement is between you and TuneMusic label company
+              ("Company"). We reserve the right to modify, discontinue, or
+              terminate the Site and Services at any time, as well as to modify
+              the Terms of Service without notice. Any changes to these terms
+              will not affect the validity of earlier versions. It's your
+              responsibility to check these Terms of Service periodically for
+              updates. By continuing to use the Site and/or Services after any
+              modifications, you agree to be bound by the revised Terms of
+              Service. You may not alter these terms without our express written
+              consent.
+            </p>
+          </div>
+
+          <h1 class="font-bold">Tune Music Label Terms & Conditions</h1>
+          <p>
+            1. Acceptance of Terms <br />
+            <br />
+            <i class="ri-arrow-right-double-line"></i> By using our services,
+            you agree to abide by our terms and policies. <br />
+
+            <i class="ri-arrow-right-double-line"></i> We reserve the right to
+            update our terms and policies at any time.
+          </p>
+          <br />
+          <p>
+            2. Limitation of Liability<br />
+            <br />
+            <i class="ri-arrow-right-double-line"></i> We are not liable for any
+            damages or losses incurred while using our services. <br />
+
+            <i class="ri-arrow-right-double-line"></i> Users are responsible for
+            their own actions and content.
+          </p>
+          <br />
+          <p>
+            3. Governing Law <br />
+            <br />
+            <i class="ri-arrow-right-double-line"></i> These terms and policies
+            are governed by the laws of India,West Bengal.
+          </p>
+          <br />
+        </div>
+        <div class="rules" style="display: none">
+          <div class="div flex flex-col gap-4 py-4">
+            <h1>
+              These Rules and Regulations were last revised and are effective as
+              of May 10th, 2024
+            </h1>
+            <h1 class="font-bold uppercase">
+              BELIEVE INTERNATIONAL Rules and Regulations
+            </h1>
+            <p>
+              These rules and regulations govern TuneMusic Label's operations
+              for digital music distribution, product supply ("Products"), and
+              services ("Services"), whether conducted through our websites,
+              mobile applications, widgets, or API (collectively or individually
+              referred to as "Sites"). TuneMusic Label serves as the primary
+              data controller, while its subsidiaries act as data processors.We
+              prioritize secure data processing, confidentiality, and the
+              protection of privacy and associated rights. We urge you to
+              thoroughly review our rules and regulations.
+            </p>
+          </div>
+          <h1 class="font-bold">Tune Music Label Rules & Regulations</h1>
+          <p>
+            1. Eligibility <br />
+            <br />
+            <i class="ri-arrow-right-double-line"></i> To use our services, you
+            must be at least 18 years old or have the consent of a parent or
+            guardian. <br />
+
+            <i class="ri-arrow-right-double-line"></i> You must have the
+            necessary rights and permissions to distribute the music you submit.
+          </p>
+          <br />
+          <p>
+            2. Submission Guidelines <br />
+            <br />
+            <i class="ri-arrow-right-double-line"></i> All music submissions
+            must be original compositions or have the necessary rights for
+            distribution. <br />
+
+            <i class="ri-arrow-right-double-line"></i> Submissions must not
+            infringe upon the copyrights or intellectual property rights of
+            others.
+          </p>
+          <br />
+          <p>
+            3. Licensing and Royalties <br />
+            <br />
+            <i class="ri-arrow-right-double-line"></i> By submitting music, you
+            grant us the non-exclusive right to distribute and license your
+            music.
+            <br />
+
+            <i class="ri-arrow-right-double-line"></i> You will receive
+            royalties based on the usage of your music, If you haven't been able
+            to income any royalties even after releasing five songs, then yours
+            The dashboard will be suspended for three months.
+          </p>
+          <br />
+          <p>
+            4. Payments <br />
+            <br />
+            <i class="ri-arrow-right-double-line"></i> Royalties will be paid
+            out according to our payment schedule and method. <br />
+
+            <i class="ri-arrow-right-double-line"></i> You will receive
+            royalties based on the usage of your music, If you haven't been able
+            to income any royalties even after releasing five songs, then yours
+            The dashboard will be suspended for three months.
+          </p>
+          <br />
+          <p>
+            5. Termination <br />
+            <br />
+            <i class="ri-arrow-right-double-line"></i> We reserve the right to
+            terminate our services to any user who violates our terms or
+            policies.
+            <br />
+
+            <i class="ri-arrow-right-double-line"></i> Upon termination, all
+            rights granted to us for your music will cease.
+          </p>
+        </div>
+        <br />
+        <div class="privacy" style="display: none">
+          <div class="div flex flex-col gap-4 py-4">
+            <h1>
+              These Privacy Policies were last revised and are effective as of
+              May 10th, 2024
+            </h1>
+            <h1 class="font-bold uppercase">
+              BELIEVE INTERNATIONAL Privacy Policy
+            </h1>
+            <p>
+              This Privacy Policy outlines TuneMusic Label's practices regarding
+              the processing of personal data for the digital distribution of
+              music, as well as the provision of products ("Products") and
+              services ("Services"), whether through our websites or other
+              electronic communication services (such as widgets, mobile
+              applications, or API), collectively or individually referred to as
+              "Sites". TuneMusic Label acts as the data controller, and its
+              subsidiaries act as data processors.
+            </p>
+          </div>
+          <h1 class="font-bold">Tune Music Label Privacy Policy</h1>
+          <p>
+            1. Information Collection <br />
+            <br />
+            <i class="ri-arrow-right-double-line"></i> We collect personal
+            information for the purpose of providing our services. <br />
+
+            <i class="ri-arrow-right-double-line"></i> Information collected may
+            include name, email address, payment information, and other relevant
+            details.
+          </p>
+          <br />
+          <p>
+            2. Information Use<br />
+            <br />
+            <i class="ri-arrow-right-double-line"></i> We use personal
+            information to process payments, provide customer support, and
+            improve our services. <br />
+
+            <i class="ri-arrow-right-double-line"></i> We do not sell or share
+            personal information with third parties without consent.
+          </p>
+          <br />
+          <p>
+            3. Data Security <br />
+            <br />
+            <i class="ri-arrow-right-double-line"></i> We take measures to
+            secure and protect personal information from unauthorized access or
+            disclosure. <br />
+            <i class="ri-arrow-right-double-line"></i>Users are responsible for
+            maintaining the security of their account credentials.
+          </p>
+          <br />
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer class="footer font-nunito pl-10">
+    <div class="container row">
+      <div class="footer-col">
+        <h4>Learn About TuneMusic</h4>
+        <ul>
+            <li><a href="/">What Is TuneMusic? </a></li>
+            <li><a href="/packages">Our Subscriptions</a></li>
+            <li><a href="/terms">Terms & Conditions</a></li>
+            <li><a href="/UserHome">Careers</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Make Money With TuneMusic</h4>
+        <ul>
+            <li><a href="/register">Create Your Account</a></li>
+            <li><a href="/login">Sell Your Music</a></li>
+            <li><a href="/UserHome">Artist Services</a></li>
+            
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Account Services</h4>
+        <ul>
+          <li><a href="/login">Login</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="/">About</a></li>
+         
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>follow us</h4>
+        <div class="social-links">
+          <a href="#"><i class="fa-brands ri-facebook-fill"></i></a>
+          <a href="#"><i class="fa-brands ri-twitter-x-line"></i></a>
+          <a href="#"><i class="fa-brands ri-instagram-fill"></i></a>
+          <a href="#"><i class="fa-brands ri-linkedin-fill"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
+<script src="/javascripts/sidebar.js"></script>
+
+<script>
+  // Function to show/hide content based on button clicks
+  function showContent(content, button) {
+    // Hide all content divs
+    document.querySelectorAll(".terms, .rules, .privacy").forEach((div) => {
+      div.style.display = "none";
+    });
+
+    // Show the selected content div
+    document.querySelector("." + content).style.display = "block";
+
+    // Reset background color of all buttons
+    document.querySelectorAll(".tab-button").forEach((btn) => {
+      btn.style.backgroundColor = ""; // Reset background color
+      button.style.color = "black";
+    });
+
+    // Change background color of clicked button
+    button.style.backgroundColor = "#A1A1AA";
+  }
+
+  // By default, show the terms content
+  showContent("terms", document.getElementById("terms-button"));
+</script>

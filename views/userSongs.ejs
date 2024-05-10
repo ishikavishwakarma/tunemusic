@@ -1,93 +1,195 @@
 <% include ./partials/header.ejs %>
+<style>
+    @media (prefers-color-scheme: dark) {
+                  .dark\:bg-gray-900\/80 {
+                background-color: transparent; 
+            }
+        }
+        .button-group button.active {
+          background-color: blue;
+          color: #fff;
+      }
+</style>
 <div class="div">
-  <nav class="flex  h-fit flex-col">
-       
-    <div class="div flex  bg-zinc-100 text-[#000] items-center justify-between py-5 px-5 lg:px-14 ">
-        <div class="left ">
-            <a class="text-bold inline-flex text-xl font-bold items-center" href="/"> <img class="h-16 w-24" src="/images/20230430_211720_0000-removebg-preview.png" alt=""> Tune <span>Music</span></a>
-        </div>
-        <div class="right">
-            <ul class="flex lg:text-lg text-lg md:text-sm md:gap-5  font-['gilroy'] gap-8 items-center  ">
-                <li class=" font-bold"><a href="/"> Home</a></li>
-                <li class=" font-bold"><a href="/userprofile">Dashboard</a></li>
-                <li class=" font-bold"><a href="/uploadMusic">Upload Songs</a></li>
-                <li class=" font-bold"><a href="/songs">Your Songs</a></li>
-               
-               
-                <% if(loggedInUser) { %>
-                  <li class="font-bold"><a href="/logout">Logout</a></li>
-                <% } else { %>
-                  <li class="font-bold"><a href="/login">Login</a></li>
-                <% } %>
-               
-                <h4><i id="menu-btn" class="  ri-menu-line"></i></h4>
-            </ul>
-        </div>
+  <nav
+  class="fixed top-0 z-50 w-full h-20 bg-zinc-100 border-b border-gray-200  "
+>
+  <div class="px-3 py-3 lg:px-5 lg:pl-3">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center justify-start rtl:justify-end">
+        <button
+          data-drawer-target="logo-sidebar"
+          data-drawer-toggle="logo-sidebar"
+          aria-controls="logo-sidebar"
+          type="button"
+          class="inline-flex items-center p-2 text-sm  rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400  dark:focus:ring-gray-100"
+        >
+          <span class="sr-only">Open sidebar</span>
+          <svg
+            class="w-6 h-6"
+            aria-hidden="true"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              clip-rule="evenodd"
+              fill-rule="evenodd"
+              d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"
+            ></path>
+          </svg>
+        </button>
+        <a href="/UserHome" class="flex ms-2 md:me-10">
+          <img
+            src="/images/20230430_211720_0000-removebg-preview.png"
+            class="h-16"
+            alt="FlowBite Logo"
+          />
+          <span
+            class="self-center pr-16 text-xl font-semibold sm:text-2xl whitespace-nowrap"
+            >TuneMusic Label</span
+          >
+        </a>
+      </div>
+      
     </div>
+  </div>
 </nav>
-<div id="slidebar" class=" text-black bg-zinc-100">
-    <div class="left">
-        <a class="text-bold inline-flex text-2xl items-center justify-center" href="/"> <img class="h-16 w-24" src="/images/20230430_211720_0000-removebg-preview.png" alt=""> Tune <span>Music</span></a>
-    </div>
-    <a href="/"> <i class="ri-home-5-fill pr-2"></i> Home</a>
-    <a href="/userprofile"> <i class="ri-home-5-fill pr-2"></i> Dashboard</a>
-    <a href="/uploadMusic"><i class="ri-phone-camera-fill pr-2"></i>Upload Songs</a>
-    <a href="/songs"> <i class="ri-gallery-line pr-2"></i>Your Songs</a>
+<aside
+  id="logo-sidebar"
+  class="fixed top-5 left-0 z-40 w-42 h-screen pt-20 transition-transform -translate-x-full bg-white  border-r border-gray-200 sm:translate-x-0  "
+  aria-label="Sidebar"
+>
+  <div class="h-full px-3 pb-4 overflow-y-auto  ">
+    <ul class="space-y-2 font-medium">
+      <li>
+        <a
+          href="/UserHome"
+          class="flex items-center p-2 text-black rounded-lg dark:text-black hover:bg-zinc-100 dark:hover:bg-zinc-100 group"
+        >
+          <i class="text-2xl ri-home-4-line"></i>
+         
+        </a>
+      </li>
+      <li>
+        <a
+          href="/songs"
+          class="flex items-center p-2 text-black rounded-lg dark:text-black hover:bg-zinc-100 dark:hover:bg-zinc-100 group"
+        >
+          <i class="text-2xl ri-file-music-line"></i>
+          
+        </a>
+      </li>
+      
+      <li>
+        <a
+          href="/userprofile"
+          class="flex items-center p-2 text-black rounded-lg dark:text-black hover:bg-zinc-100 dark:hover:bg-zinc-100 group"
+        >
+        <i class="text-2xl ri-settings-2-line"></i>
+         
+        </a>
+      </li>
 
-    <!-- <a href="/register">Register</a> -->
-    <% if(loggedInUser) { %>
-    <a href="/logout"><i class="ri-logout-box-line pr-2"></i>Logout</a>
-      <% } else { %>
-    <a href="/login"><i class="ri-login-box-line pr-2"></i>Login</a>
-    <% } %>
-</div>
-    <div class="div p-5 h-full w-full">
-        <div class="div grid grid-cols-3 place-items-center h-96 w-full ">
-            <%if(loggedInUser.songs && loggedInUser.songs.length > 0){%>
-              <%loggedInUser.songs.forEach(function(song){%>  
-                <div class="max-w-96 bg-white border border-gray-200 rounded-lg shadow dark:bg-zinc-200 dark:border-gray-200">
-                    <a href="#">
-                        <img class="rounded-t-lg h-48 w-full object-cover" src="<%=song.posterUrl%>" alt="" />
-                    </a>
-                    <div class="p-5 flex flex-col gap-5">
-                        
-                            <h5 class="mb-2 text-2xl uppercase font-bold tracking-tight text-gray-900 dark:text-black"><%=song.title%></h5>
-                     <div class="para flex items-center  gap-6">
-        
-                         <p class="mb-3 font-n text-gray-100 dark:text-gray-900"><%=song.artistName%></p>
-                         <% 
-                                                                // Assuming event.eventDate is a JavaScript Date object
-                                                                const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
-                                                                const formattedDate = song.releaseDate.toLocaleDateString(undefined, options);
-                                                            %>
-                         <p class="mb-3 font-normal text-gray-900 dark:text-gray-900"><%=formattedDate%></p>
-                         <% if (song.status === 'pending') { %>
-                            <a  class="uppercase items-center px-3 py-2 text-sm font-medium text-center text-white bg-orange-400 rounded-lg hover:bg-orange-500 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-orange-400 dark:hover:bg-orange-500 dark:focus:ring-blue-800">
-                             Pending
-                            </a>
-                          <% } else if (song.status === 'approve') { %>
-                            <a  class="uppercase items-center px-3 py-2 text-sm font-medium text-center text-white bg-green-400 rounded-lg hover:bg-green-500 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-green-400 dark:hover:bg-green-500 dark:focus:ring-blue-800">
-                              Approved
-                            </a>
-                          <% } else if (song.status === 'reject') { %>
-                            <a href="#" class="uppercase items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-400 rounded-lg hover:bg-red-500 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-red-400 dark:hover:bg-red-500 dark:focus:ring-blue-800">
-                             Rejected
-                            </a>
-                          <% } %>
-                     </div>
-                        <a href="/usersongs/<%=song._id%>" class=" items-center w-fit px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                            Read more
-                        </a>
-                    </div>
-                </div>
-                <%})%>   
+      <li>
+        <a
+          href="/logout"
+          class="flex items-center p-2 text-black rounded-lg dark:text-black hover:bg-zinc-100 dark:hover:bg-zinc-100 group"
+        >
+        <i class="text-xl ri-login-box-line"></i>
+          
+        </a>
+      </li>
+    </ul>
+  </div>
+</aside>
+  <div class="p-4 sm:ml-16 bg-zinc-100">
+    <div class="div h-full md:px-7 lg:p-4 mt-16">
+        <div class="div flex justify-between">
+
+            <h1 class="text-zinc-800 text-2xl font-[600] pb-5">Dashboard</h1>
+            <div class="div overflow-hidden h-10 w-10 rounded-full bg-red-900">
+              <%if(loggedInUser.image && loggedInUser.image.length > 0){%>
+                <img class="h-full w-full object-cover" src="<%=loggedInUser.image%>" alt="">
               <%}else{%>
-                <div class="div text-black text-2xl font-bold">No Requests here...</div>
-                <%}%>
-  
-  
-           </div>
+                <img class="h-full w-full object-cover" src="/images/user.jpg" alt="">
+              <%}%>
 
+            </div>
+        </div>
+   
+        <div class="div h-full w-full">
+          <div class="div button-group gap-2 flex md:gap-4">
+            <button id="approvedBtn" class="bg-white active rounded-lg px-2 md:py-1 md:px-4">Approved</button>
+            <button id="pendingBtn" class="bg-white rounded-lg px-2 md:py-1 md:px-4">Pending</button>
+            <button id="rejectedBtn" class="bg-white rounded-lg px-2 md:py-1 md:px-4">Rejected</button>
+          </div>
+          <div id="songContainer" class="div song-container flex flex-col md:flex-row md:flex-wrap items-center gap-5 h-full py-7 w-full ">
+              <%if(loggedInUser.songs && loggedInUser.songs.length > 0){%>
+                <%loggedInUser.songs.forEach(function(song){%>
+                  <a  href="/usersongs/<%=song._id%>">
+
+                    <div  data-status="<%=song.status%>" class="  song w-72 relative  h-72 border  rounded-lg shadow  ">
+                      
+                            <img class="rounded-lg h-full w-full object-cover" src="<%=song.posterUrl%>" alt="" />
+                       
+                      <h1 class="absolute bottom-5 left-5 px-2 py-1 rounded-lg text-white bg-[#ffffff58] "><%=song.title%></h1>
+                    </div>
+                  </a>  
+                  <%})%>   
+                <%}else{%>
+                  <div class="div text-black text-2xl font-bold">No Requests here...</div>
+                  <%}%>
+        
+        
+             </div>
+        
+        </div>
     </div>
+  </div>
 </div>
-<script src="/javascripts/sidebar.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const approvedBtn = document.getElementById('approvedBtn');
+    const pendingBtn = document.getElementById('pendingBtn');
+    const rejectedBtn = document.getElementById('rejectedBtn');
+    const songs = document.querySelectorAll('.song');
+
+    function filterSongs(status) {
+        songs.forEach(song => {
+            if (song.dataset.status === status) {
+                song.style.display = 'block';
+            } else {
+                song.style.display = 'none';
+            }
+        });
+        // Change background color of the buttons
+        approvedBtn.classList.remove('active');
+        pendingBtn.classList.remove('active');
+        rejectedBtn.classList.remove('active');
+        if (status === 'approve') {
+            approvedBtn.classList.add('active');
+        } else if (status === 'pending') {
+            pendingBtn.classList.add('active');
+        } else if (status === 'reject') {
+            rejectedBtn.classList.add('active');
+        }
+    }
+
+    approvedBtn.addEventListener('click', () => {
+        filterSongs('approve');
+    });
+
+    pendingBtn.addEventListener('click', () => {
+        filterSongs('pending');
+    });
+
+    rejectedBtn.addEventListener('click', () => {
+        filterSongs('reject');
+    });
+
+    // Set default filter to 'Approved' on page load
+    filterSongs('approve');
+});
+</script>
