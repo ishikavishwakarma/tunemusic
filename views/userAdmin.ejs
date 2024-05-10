@@ -331,13 +331,16 @@
                   class="divide-y divide-gray-200 dark:divide-gray-700"
                 >
                   <li class="py-3 sm:py-4">
+                    <%if(recentSong>0){%>
                     <div class="flex items-center">
                       <div class="flex-shrink-0">
-                        <img
-                          class="w-8 h-8 object-cover rounded-full"
-                          src=" <%=recentSong.posterUrl%>"
-                          alt=""
-                        />
+                        
+                          <img
+                            class="w-8 h-8 object-cover rounded-full"
+                            src=" <%=recentSong.posterUrl%>"
+                            alt=""
+                          />
+                        
                       </div>
                       <div class="flex-1 min-w-0 ms-4">
                         <p class="text-sm font-medium text-gray-900 truncate">
@@ -360,6 +363,9 @@
                         >
                       </div>
                     </div>
+                    <%}else{%>
+                      <div class="div text-black text-2xl font-bold">No songs yet...</div>
+                    <%}%>
                   </li>
                 </ul>
               </div>
