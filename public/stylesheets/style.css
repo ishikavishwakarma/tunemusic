@@ -265,3 +265,53 @@ nav{
       width: 100%;
     }
   }
+  form label:first-of-type {
+    margin-top: 0;
+  }
+  
+ 
+  
+  .input,
+  select,
+  textarea,
+  button {
+    width: 100%;
+    max-width: 500px;
+    min-height: 32px;
+    margin-top: 2px;
+    padding: 8px 8px;
+    border-radius: 4px;
+    border: 0;
+    color: black;
+    font-family: Inter, sans-serif;
+    font-size: 14px;
+    box-sizing: border-box;
+  }
+  
+  fieldset {
+    border: 0;
+    padding: 0;
+    margin: 0;
+  }
+  
+  fieldset .input {
+    min-height: unset;
+    width: 15px;
+    height: 15px;
+    vertical-align: text-line;
+  }
+  
+  fieldset label {
+    margin: 4px 0;
+  }
+  
+  legend {
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+  
+  button {
+    padding: 12px;
+    background-color: rgb(0, 170, 0);
+  
+  }

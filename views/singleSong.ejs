@@ -12,7 +12,7 @@
                </button>
               <a href="/home" class="flex ms-2 md:me-24">
                 <img src="/images/20230430_211720_0000-removebg-preview.png" class="h-8 me-3" alt="FlowBite Logo" />
-                <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">TuneMusic</span>
+                <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Tune Music Label</span>
               </a>
             </div>
             <div class="flex items-center">
@@ -98,58 +98,102 @@
       </aside>
       <div class="p-4 sm:ml-64">
         <div class="div  mt-16">
-            <div
-  class="flex flex-col h-[80vh] w-full rounded-lg gap-5 text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-black  md:flex-row">
-  <img
-    class=" rounded-t-lg object-cover md:h-auto md:w-[30vw] md:!rounded-none md:!rounded-s-lg"
-    src="<%=song.posterUrl%>"
-    alt="" />
-  <div class="flex flex-col gap-3 justify-start p-1">
-    <h5 class="mb-2 text-xl uppercase font-medium"><%=song.title%></h5>
-    <p class="mb-4 text-base">
-        Underneath the stars, we found solace in whispered secrets, now buried in the sands of time.
-    </p>
-    <!-- <h5 class="mb-2 text-xl uppercase font-medium"><%=song.artistName%></h5> -->
-    <h5 class="mb-2 text-xl uppercase font-medium">NAME :- <%=song.artistName%> </h5>
-    <h5 class="mb-2 text-xl uppercase font-medium">instagramId :- <%=song.instagramId%> </h5>
-    <h5 class="mb-2 text-xl uppercase font-medium">isrcCode :- <%=song.isrcCode%> </h5>
-    <h5 class="mb-2 text-xl uppercase font-medium">upcCode :- <%=song.upcCode%> </h5>
-    <h5 class="mb-2 text-xl uppercase font-medium">genre :- <%=song.genre%> </h5>
-    <p class="mb-4 text-base">
-       The song status is <span class="uppercase text-lg font-semibold"><%=song.status%></span>
-    </p>
-   <div class="div flex gap-5">
-<%if(song.status === 'approve' ){%>
-  <a href="#" class="uppercase items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-400 rounded-lg hover:bg-blue-500 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-400 dark:hover:bg-blue-500 dark:focus:ring-blue-800"
-  onclick="updaterejectstatus('<%= song._id %>')">
-Reject
-</a>
-<a href="/deletesong/<%= song._id %>" class=" uppercase items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-400 rounded-lg hover:bg-blue-500 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-400 dark:hover:bg-blue-500 dark:focus:ring-blue-800">
- Delete    
-</a>
-<%}else{%>
-  <a href="#" class="uppercase items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-400 rounded-lg hover:bg-blue-500 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-400 dark:hover:bg-blue-500 dark:focus:ring-blue-800"
-  onclick="updateStatus('<%= song._id %>')">
- Approve
-</a>
-<a href="#" class="uppercase items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-400 rounded-lg hover:bg-blue-500 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-400 dark:hover:bg-blue-500 dark:focus:ring-blue-800"
-onclick="updaterejectstatus('<%= song._id %>')">
-Reject
-</a>
-<a href="/deletesong/<%= song._id %>" class=" uppercase items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-400 rounded-lg hover:bg-blue-500 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-400 dark:hover:bg-blue-500 dark:focus:ring-blue-800">
-Delete    
-</a>
-<%}%>
+            <div class="flex flex-col h-[80vh] w-full rounded-lg gap-5 text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-black  lg:flex-row">
+  <div class="div">
+    <img
+      class=" rounded-lg object-cover lg:h-96 lg:w-[33vw] xl:w-[30vw] "
+      src="<%=song.posterUrl%>"
+      alt="" />
+      <div class="div pt-3 ">
 
- 
-    
-   </div>
-   <audio class="text-black pt-5" controls>
-    <source src="/stream/<%= song._id %>" type="audio/mpeg">
-    Your browser does not support the audio element.
-  </audio>
-  
+        <div class="div rounded-lg px-5 bg-zinc-200 py-4">
+  <h1 class="pl-3"><%=song.title%></h1>
+          <audio class="text-black pt-4" controls>
+            <source src="/stream/<%= song._id %>" type="audio/mpeg" />
+            Your browser does not support the audio element.
+          </audio>
+        </div>
+      </div>
   </div>
+    <div id="survey-form"  class="flex flex-col  gap-5"  method="post">
+      <div class="grid gap-8 px-5 py-9 rounded-lg bg-zinc-200 grid-cols-2">
+
+          <div class="div ">
+              <label id="name-label"  for="name"
+                >Song Title</label>
+                <div  class=" input rounded-lg bg-zinc-100" ><%=song.title%></div>
+              
+          </div>
+       
+         
+          <div class="div">
+              <label id="name-label"  for="name"
+                >Artist Name</label>
+                <div  class=" input rounded-lg bg-zinc-100" ><%=song.artistName%></div>
+          </div>
+         
+          <div class="div">
+              <label id="name-label"  for="name"
+                >Instagram Id</label>
+                <div  class=" input rounded-lg bg-zinc-100" ><%=song.instagramId%></div>
+
+          </div>
+          <div class="div">
+              <label id="name-label"  for="name"
+                >ISRC Code</label>
+                <div  class=" input rounded-lg bg-zinc-100" ><%=song.isrcCode%></div>
+
+          </div>
+          <div class="div">
+              <label id="name-label"  for="name"
+                >UPC Code</label>
+                <div  class=" input rounded-lg bg-zinc-100" ><%=song.upcCode%></div>
+
+          </div>
+          <div class="div">
+              <label id="name-label"  for="name"
+                >Genre</label>
+                <div  class=" input rounded-lg bg-zinc-100" ><%=song.genre%></div>
+
+          </div>
+          <div class="div">
+              <label id="name-label"  for="name"
+                >Release Date</label>
+                <% 
+                // Assuming event.eventDate is a JavaScript Date object
+                const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
+                const formattedDate = song.releaseDate.toLocaleDateString(undefined, options);
+            %>
+                <div  class=" input rounded-lg bg-zinc-100" ><%=formattedDate%></div>
+          </div>
+         
+      </div>    
+      <p class="mb-4 text-base">
+        The song status is
+        <span class="uppercase text-lg font-semibold">
+          <% if (song.status === 'pending') { %>
+          <a
+            class="items-center py-2 font-medium text-lg text-center text-black"
+          >
+            Pending
+          </a>
+          <% } else if (song.status === 'approve') { %>
+          <a
+            class="items-center py-2 text-lg font-medium text-center text-black rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300"
+          >
+            Approved
+          </a>
+          <% } else if (song.status === 'reject') { %>
+          <a
+            href="#"
+            class="items-center py-2 text-lg font-medium text-center text-black"
+          >
+            Rejected
+          </a>
+          <% } %>
+        </span>
+      </p>
+    </div>
 </div>
         </div>
       </div>

@@ -36,7 +36,7 @@
           />
           <span
             class="self-center pr-16 text-xl font-semibold sm:text-2xl whitespace-nowrap"
-            >TuneMusic Label</span
+            >Tune Music Label</span
           >
         </a>
       </div>
@@ -102,9 +102,14 @@
         <div class="p-4 md:p-12 text-center lg:text-left">
           <!-- Image for mobile view-->
           <div
-            class="block lg:hidden rounded-full shadow-xl mx-auto -mt-16 h-48 w-48 bg-cover bg-center"
+            class="block lg:hidden overflow-hidden rounded-full shadow-xl mx-auto -mt-16 h-48 w-48 bg-cover bg-center"
            
-          ></div>
+          >
+          <%if(loggedInUser.image && loggedInUser.image.length > 0){%>
+            <img src="<%=loggedInUser.image%>" class="h-full w-full object-cover">
+       <%}else{%>
+        <img src="/images/user.jpg" class="h-full w-full object-cover">
+        <%}%></div>
 
           <h1 class="text-3xl font-bold pt-8 lg:pt-0">
             <%=loggedInUser.name%>
@@ -256,4 +261,4 @@
     </div>
   </div>
 </div>
-<script src="/javascripts/sidebar.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
